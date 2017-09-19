@@ -1,0 +1,40 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/lib/highlight/src/styles/default.min.css",
+    "inputFiles": [
+      "wwwroot/lib/highlight/src/styles/default.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/highlight/src/highlight.min.js",
+    "inputFiles": [
+      "wwwroot/lib/highlight/src/highlight.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/csharp.min.css",
+    "inputFiles": [
+      "wwwroot/css/csharp.css"
+    ]
+  }
+]
