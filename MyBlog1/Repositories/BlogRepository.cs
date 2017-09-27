@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using MyBlog1.Data;
+using MyBlog1.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using MyBlog1.Models;
-using MyBlog1.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace MyBlog1.Repositories
 {

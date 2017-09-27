@@ -196,7 +196,7 @@ namespace MyBlog1.Models
     and it’s used for SEO.
 </div>
 
-    <br />
+<br />
 <div>
     The PostTags property is a navigation property. Navigation properties hold
     other entities that are related to this entity. In this case, the PostTags
@@ -215,17 +215,17 @@ namespace MyBlog1.Models
     collection by default.
 </div>
 
-    <br />
+<br />
 
 
-    <br />
+<br />
 
 <div>
     The Category and Tag classes are simple as shown below. We have used the
     UrlSlug property for the same reason that we discussed above.
 </div>
 
-    <br />
+<br />
 
 <pre class="brush: csharp; highlight:[3,4,5]">
 
@@ -328,7 +328,7 @@ namespace MyBlog1.Models
     property is Tag. An PostTag entity is associated with one Tag entity.
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -471,7 +471,6 @@ namespace MyBlog1
             services.AddMvc();
 
             services.AddDbContext&lt;BloggingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped&lt;IBlogRepository, BlogRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -788,7 +787,7 @@ namespace MyBlog1
     database when the data model changes, without deleting and re-creating it.
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -874,124 +873,118 @@ namespace MyBlog1.Repositories
     In the repositories folder let’s create a class BlogRepository and
     implement the interface.
 </div>
-<div>
+
+<pre class="brush: csharp;">
+
+using Microsoft.EntityFrameworkCore;
+using MyBlog1.Data;
+using MyBlog1.Models;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MyBlog1.Repositories
+{
     public class BlogRepository : IBlogRepository
-</div>
-<div>
     {
-</div>
-<div>
-    private BloggingContext _context;
-</div>
-<div>
-    public BlogRepository(BloggingContext context)
-</div>
-<div>
-    {
-</div>
-<div>
-    _context = context;
-</div>
-<div>
+        private BloggingContext _context;
+        public BlogRepository(BloggingContext context)
+        {
+            _context = context;
+        }
+
+        public IList&lt;Post> Posts(int pageNo, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int TotalPosts()
+        {
+            throw new NotImplementedException();
+        }
     }
-</div>
-<div>
+}
+
+
+</pre>
+
+
 <br />
 
 
 
-
-
-
-
-</div>
-<div>
-    public IList&lt;Post&gt; Posts(int pageNo, int pageSize)
-</div>
-<div>
-    {
-</div>
-<div>
-    throw new NotImplementedException();
-</div>
-<div>
-    }
-</div>
-<div>
-<br />
-
-
-
-
-
-
-
-</div>
-<div>
-    public int TotalPosts()
-</div>
-<div>
-    {
-</div>
-<div>
-    throw new NotImplementedException();
-</div>
-<div>
-    }
-</div>
-<div>
-    }
-</div>
 <div>
     As the concept of dependency injection is central to the ASP.NET Core
     Application, we register both context and repository to the dependency
     injection during the Application start up. Thus, we register these as a
     Service in the ConfigureServices method in the StartUp class.
 </div>
-<div>
+
 <br />
 
+<pre class="brush: csharp; highlight:[26]">
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MyBlog1.Data;
+using MyBlog1.Repositories;
 
-
-
-
-
-
-</div>
-<div>
-    // This method gets called by the runtime. Use this method to add services
-    to the container.
-</div>
-<div>
-    public void ConfigureServices(IServiceCollection services)
-</div>
-<div>
+namespace MyBlog1
+{
+    public class Startup
     {
-</div>
-<div>
-    services.AddMvc();
-</div>
-<div>
-<br />
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
+        public IConfiguration Configuration { get; }
 
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
 
+            services.AddDbContext&lt;BloggingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped&lt;IBlogRepository, BlogRepository>();
+        }
 
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
+            app.UseStaticFiles();
 
-
-</div>
-<div>
-    services.AddDbContext&lt;BloggingContext&gt;(options =&gt;
-    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-</div>
-<div>
-    services.AddScoped&lt;IBlogRepository, BlogRepository&gt;();
-</div>
-<div>
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
     }
-</div>
-<div>
+}
+
+
+
+
+
+</pre>
+
+
+
+
+
 <br />
 
 
@@ -1000,133 +993,68 @@ namespace MyBlog1.Repositories
 
 
 
-</div>
+
 <div>
     Here the implementation of the BlogRepository
 </div>
-<div>
+
+<pre class="brush: csharp;">
+
+using Microsoft.EntityFrameworkCore;
+using MyBlog1.Data;
+using MyBlog1.Models;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MyBlog1.Repositories
+{
     public class BlogRepository : IBlogRepository
-</div>
-<div>
     {
-</div>
-<div>
-    private BloggingContext _context;
-</div>
-<div>
-    public BlogRepository(BloggingContext context)
-</div>
-<div>
-    {
-</div>
-<div>
-    _context = context;
-</div>
-<div>
+        private BloggingContext _context;
+        public BlogRepository(BloggingContext context)
+        {
+            _context = context;
+        }
+
+        public IList&lt;Post> Posts(int pageNo, int pageSize)
+        {
+            var posts = _context.Posts
+                  .Where(p => p.Published)
+                  .OrderByDescending(p => p.PostedOn)
+                  .Skip(pageNo * pageSize)
+                  .Take(pageSize)
+                  .Include(s => s.PostTags)
+                        .ThenInclude(e => e.Tag)
+                  .Include(c => c.Category)
+                  .AsNoTracking()
+                  .ToList();
+
+            return posts;
+        }
+
+        public int TotalPosts()
+        {
+            return _context.Posts.Where(p => p.Published).Count();
+        }
     }
-</div>
-<div>
+}
+
+
+
+
+</pre>
+
+
+
+
 <br />
 
 
-
-
-
-
-
-</div>
-<div>
-    public IList&lt;Post&gt; Posts(int pageNo, int pageSize)
-</div>
-<div>
-    {
-</div>
-<div>
-    var posts = _context.Posts
-</div>
-<div>
-    .Where(p =&gt; p.Published)
-</div>
-<div>
-    .OrderByDescending(p =&gt; p.PostedOn)
-</div>
-<div>
-    .Skip(pageNo * pageSize)
-</div>
-<div>
-    .Take(pageSize)
-</div>
-<div>
-    .Include(s =&gt; s.PostTags)
-</div>
-<div>
-    .ThenInclude(e =&gt; e.Tag)
-</div>
-<div>
-    .Include(c =&gt; c.Category)
-</div>
-<div>
-    .AsNoTracking()
-</div>
-<div>
-    .ToList();
-</div>
-<div>
-<br />
-
-
-
-
-
-
-
-</div>
-<div>
-    return posts;
-</div>
-<div>
-    }
-</div>
-<div>
-<br />
-
-
-
-
-
-
-
-</div>
-<div>
-    public int TotalPosts()
-</div>
-<div>
-    {
-</div>
-<div>
-    return _context.Posts.Where(p =&gt; p.Published).Count();
-</div>
-<div>
-    }
-</div>
-<div>
-    }
-</div>
-<div>
-<br />
-
-
-
-
-
-
-
-</div>
 <div>
     Create controller and actions
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1140,7 +1068,7 @@ namespace MyBlog1.Repositories
     Add -&gt; Controller. Name the controller as BlogController.
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1154,11 +1082,11 @@ namespace MyBlog1.Repositories
     clients, process them and provide a response. In ASP.NET MVC application
     all the controllers are usually placed in the Controllers folder. Each
     controller has to be suffixed with the name "Controller". The component
-    that responsible for searching controllers looks for classes that derives
+    that is responsible for searching controllers looks for classes that derives
     from the class Controller and whose name ends with "Controller".
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1170,123 +1098,88 @@ namespace MyBlog1.Repositories
 <div>
     Create a constructor that takes IBlogRepository as input parameter.
 </div>
-<div>
+
 <br />
 
+<pre class="brush: csharp;">
 
 
+using Microsoft.AspNetCore.Mvc;
+using MyBlog1.Models.View_Models;
+using MyBlog1.Repositories;
 
-
-
-
-</div>
-<div>
+namespace MyBlog1.Controllers
+{
     public class BlogController : Controller
-</div>
-<div>
     {
-</div>
-<div>
-    private readonly IBlogRepository _blogRepository;
-</div>
-<div>
+        private readonly IBlogRepository _blogRepository;
+
+        public BlogController(IBlogRepository blogRepository)
+        {
+            _blogRepository = blogRepository;
+        }
+
+        .....
+
+    }
+}
+
+
+</pre>
+
+
 <br />
 
-
-
-
-
-
-
-</div>
-<div>
-    public BlogController(IBlogRepository blogRepository)
-</div>
-<div>
-    {
-</div>
-<div>
-    _blogRepository = blogRepository;
-</div>
-<div>
-    }
-</div>
-<div>
-<br />
-
-
-
-
-
-
-
-</div>
-<div>
-</div>
-<div>
-    }
-</div>
 <div>
     We can notice that Controller takes the IBlogRepository as a constructor
     parameter. ASP.NET dependency injection will take care of passing an
     instance of IBlogRepository into BlogController.
 </div>
-<div>
+
 <br />
 
 
-
-
-
-
-
-</div>
 <div>
     Create a method with name Posts that takes an input parameter p for page
     number,
 </div>
-<div>
+<br />
 <br />
 
 
+<pre class="brush: csharp;">
 
+using Microsoft.AspNetCore.Mvc;
+using MyBlog1.Models.View_Models;
+using MyBlog1.Repositories;
 
-
-
-
-</div>
-<div>
+namespace MyBlog1.Controllers
+{
     public class BlogController : Controller
-</div>
-<div>
     {
-</div>
-<div>
-    private readonly IBlogRepository _blogRepository;
-</div>
-<div>
-<br />
+        private readonly IBlogRepository _blogRepository;
 
+        public BlogController(IBlogRepository blogRepository)
+        {
+            _blogRepository = blogRepository;
+        }
 
+        public ViewResult Posts(int p = 1)
+        {
+            
+                // TODO: read and return posts from repository
+        }
 
-
-
-
-
-</div>
-<div>
-    public BlogController(IBlogRepository blogRepository)
-</div>
-<div>
-    {
-</div>
-<div>
-    _blogRepository = blogRepository;
-</div>
-<div>
     }
-</div>
-<div>
+}
+
+
+</pre>
+
+
+
+
+
 <br />
 
 
@@ -1294,45 +1187,8 @@ namespace MyBlog1.Repositories
 
 
 
-
-</div>
-<div>
-    public ViewResult Posts(int p = 1)
-</div>
-<div>
-    {
-</div>
-<div>
-    // TODO: read and return posts from repository
-</div>
-<div>
-    }
-</div>
-<div>
 <br />
 
-
-
-
-
-
-
-</div>
-<div>
-</div>
-<div>
-    }
-</div>
-<div>
-<br />
-
-
-
-
-
-
-
-</div>
 <div>
     Any public method in a controller can be called as an action. Usually
     actions returns any type that derives from ActionResult. In the above Posts
@@ -1340,9 +1196,9 @@ namespace MyBlog1.Repositories
     ViewResult as return type.
 </div>
 <div>
-    Other types of ActionResult :
+    See <a href="https://msdn.microsoft.com/en-us/library/system.web.mvc.actionresult(v=vs.118).aspx">here</a> for other type of ActionResult.
 </div>
-<div>
+
 <br />
 
 
@@ -1350,78 +1206,6 @@ namespace MyBlog1.Repositories
 
 
 
-
-</div>
-<div>
-    Action Result Helper Method Description
-</div>
-<div>
-    ViewResult View Renders a view as a Web page.
-</div>
-<div>
-    PartialViewResult PartialView Renders a partial view, which defines a
-    section of a view that can be rendered inside another view.
-</div>
-<div>
-    RedirectResult Redirect Redirects to another action method by using its
-    URL.
-</div>
-<div>
-    RedirectToRouteResult RedirectToAction or RedirectToRoute Redirects to
-    another action method.
-</div>
-<div>
-    ContentResult Content Returns a user-defined content type.
-</div>
-<div>
-    JsonResult Json Returns a serialized JSON object.
-</div>
-<div>
-    JavaScriptResult JavaScript Returns a script that can be executed on the
-    client.
-</div>
-<div>
-    HttpStatusCodeResult (None) Returns a specific HTTP response code and
-    description.
-</div>
-<div>
-    HttpUnauthorizedResult (None) Returns the result of an unauthorized HTTP
-    request.
-</div>
-<div>
-    HttpNotFoundResult HttpNotFound Indicates the requested resource was not
-    found.
-</div>
-<div>
-    FileResult File Returns binary output to write to the response.
-</div>
-<div>
-    FileContentResult Controller.File(Byte[], String) or
-    Controller.File(Byte[], String, String) Sends the contents of a binary file
-    to the response.
-</div>
-<div>
-    FilePathResult Controller.File(String, String) or Controller.File(String,
-    String, String) Sends the contents of a file to the response.
-</div>
-<div>
-    FileStreamResult Controller.File(Stream, String) or Controller.File(Stream,
-    String, String) Sends binary content to the response through a stream.
-</div>
-<div>
-    EmptyResult (None) Represents a return value that is used if the action
-    method must return a null result (void).
-</div>
-<div>
-<br />
-
-
-
-
-
-
-
-</div>
 <div>
     The parameter p in the Posts action represents the page number. The default
     value of p is 1 and that represents the first page. Inside the action all
@@ -1441,7 +1225,7 @@ namespace MyBlog1.Repositories
     properties related to both domain as well as UI.
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1455,140 +1239,85 @@ namespace MyBlog1.Repositories
     name ListViewModel under the ViewModels folder that wraps both the
     collection of active posts and their total number.
 </div>
-<div>
+
 <br />
 
+<pre class="brush: csharp;">
 
 
+using MyBlog1.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-
-
-
-</div>
-<div>
+namespace MyBlog1.Models.View_Models
+{
     public class ListViewModel
-</div>
-<div>
     {
-</div>
-<div>
-    public IList&lt;Post&gt; Posts { get; private set; }
-</div>
-<div>
-    public int TotalPosts { get; private set; }
-</div>
-<div>
+        public IList&lt;Post> Posts { get; private set; }
+        public int TotalPosts { get; private set; }
     }
-</div>
-<div>
+}
+
+
+</pre>
+
+
+
+
+
 <br />
 
 
-
-
-
-
-
-</div>
 <div>
     Here is the initial implementation of the Posts action.
 </div>
-<div>
-    1
-</div>
-<div>
-    2
-</div>
-<div>
-    3
-</div>
-<div>
-    4
-</div>
-<div>
-    5
-</div>
-<div>
-    6
-</div>
-<div>
-    7
-</div>
-<div>
-    8
-</div>
-<div>
-    9
-</div>
-<div>
-    10
-</div>
-<div>
-    11
-</div>
-<div>
-    12
-</div>
-<div>
-    13
-</div>
-<div>
-    14
-</div>
-<div>
-    15
-</div>
-<div>
-    16
-</div>
-<div>
-    17 public ViewResult Posts(int p = 1)
-</div>
-<div>
+
+<pre class="brush: csharp;">
+
+using Microsoft.AspNetCore.Mvc;
+using MyBlog1.Models.View_Models;
+using MyBlog1.Repositories;
+
+namespace MyBlog1.Controllers
+{
+    public class BlogController : Controller
     {
-</div>
-<div>
-    // pick latest 10 posts
-</div>
-<div>
-    var posts = _blogRepository.Posts(p - 1, 10);
-</div>
-<div>
-</div>
-<div>
-    var totalPosts = _blogRepository.TotalPosts();
-</div>
-<div>
-</div>
-<div>
-    var listViewModel = new ListViewModel
-</div>
-<div>
-    {
-</div>
-<div>
-    Posts = posts,
-</div>
-<div>
-    TotalPosts = totalPosts
-</div>
-<div>
-    };
-</div>
-<div>
-</div>
-<div>
-    ViewBag.Title = "Latest Posts";
-</div>
-<div>
-</div>
-<div>
-    return View("List", listViewModel);
-</div>
-<div>
+        private readonly IBlogRepository _blogRepository;
+
+        public BlogController(IBlogRepository blogRepository)
+        {
+            _blogRepository = blogRepository;
+        }
+
+        public ViewResult Posts(int p = 1)
+        {
+            // pick latest 10 posts
+            var posts = _blogRepository.Posts(p - 1, 10);
+            var totalPosts = _blogRepository.TotalPosts();
+            var listViewModel = new ListViewModel
+                {
+                    Posts = posts,
+                    TotalPosts = totalPosts
+                };
+           
+            ViewBag.Title = "Latest Posts";
+            return View("List", listViewModel);
+        }
+
     }
-</div>
-<div>
+}
+</pre>
+
+
+
+
+
+
+
+
+
 <br />
 
 
@@ -1597,30 +1326,12 @@ namespace MyBlog1.Repositories
 
 
 
-</div>
-<div>
 <br />
-
-
-
-
-
-
-
-</div>
-<div>
-<br />
-
-
-
-
-
-
-
-</div>
 <div>
     We are passing the title that has to be set in the view through the
     ViewBag. ViewBag is a dynamic wrapper around the ViewData dictionary.
+</div>
+<div>
     Instead of directly instantiating and returning ViewResult we have utilized
     the built-in helper method called View to accompilsh the job. The first
     parameter we have passed to the View method is the name of the view and the
@@ -1635,8 +1346,8 @@ namespace MyBlog1.Repositories
     to a view and in other cases it's always good to go for strongly-typed
     views.
 </div>
-<div>
-<br />
+
+    <br />
 
 
 
@@ -1644,9 +1355,7 @@ namespace MyBlog1.Repositories
 
 
 
-</div>
-<div>
-<br />
+    <br />
 
 
 
@@ -1654,50 +1363,44 @@ namespace MyBlog1.Repositories
 
 
 
-</div>
+
 <div>
     Instead of getting the latest posts through _blogRepository in Posts action
     we can delegate that to the ListViewModel by passing to it.
 </div>
-<div>
+<pre class="brush: csharp;">
+
+using MyBlog1.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MyBlog1.Models.View_Models
+{
     public class ListViewModel
-</div>
-<div>
     {
-</div>
-<div>
-    const int postsPerPage = 3;
-</div>
-<div>
-<br />
+        const int postsPerPage = 3;
 
+        public ListViewModel(IBlogRepository _blogRepository, int p)
+        {
+            // pick latest 3 (postsPerPage) posts
+            Posts = _blogRepository.Posts(p - 1, postsPerPage);
+            TotalPosts = _blogRepository.TotalPosts();
+        }
 
-
-
-
-
-
-</div>
-<div>
-    public ListViewModel(IBlogRepository _blogRepository, int p)
-</div>
-<div>
-    {
-</div>
-<div>
-    // pick latest 3 (postsPerPage) posts
-</div>
-<div>
-    Posts = _blogRepository.Posts(p - 1, postsPerPage);
-</div>
-<div>
-    TotalPosts = _blogRepository.TotalPosts();
-</div>
-<div>
+        public IList&lt;Post> Posts { get; private set; }
+        public int TotalPosts { get; private set; }
     }
-</div>
-<div>
-<br />
+}
+
+
+
+</pre>
+
+
+
+    <br />
 
 
 
@@ -1705,70 +1408,44 @@ namespace MyBlog1.Repositories
 
 
 
-</div>
-<div>
-    public IList&lt;Post&gt; Posts { get; private set; }
-</div>
-<div>
-    public int TotalPosts { get; private set; }
-</div>
-<div>
-    }
-</div>
-<div>
-<br />
 
-
-
-
-
-
-
-</div>
 <div>
     Here is our modified action.
 </div>
-<div>
-    1
-</div>
-<div>
-    2
-</div>
-<div>
-    3
-</div>
-<div>
-    4
-</div>
-<div>
-    5
-</div>
-<div>
-    6
-</div>
-<div>
-    7 public ViewResult Posts(int p = 1)
-</div>
-<div>
+
+
+<pre class="brush: csharp;">
+
+
+using Microsoft.AspNetCore.Mvc;
+using MyBlog1.Models.View_Models;
+using MyBlog1.Repositories;
+
+namespace MyBlog1.Controllers
+{
+    public class BlogController : Controller
     {
-</div>
-<div>
-    var viewModel = new ListViewModel(_blogRepository, p);
-</div>
-<div>
-</div>
-<div>
-    ViewBag.Title = "Latest Posts";
-</div>
-<div>
-    return View("List", viewModel);
-</div>
-<div>
+        private readonly IBlogRepository _blogRepository;
+
+        public BlogController(IBlogRepository blogRepository)
+        {
+            _blogRepository = blogRepository;
+        }
+
+        public ViewResult Posts(int p = 1)
+        {
+            
+            var viewModel = new ListViewModel(_blogRepository, p);
+
+            ViewBag.Title = "Latest Posts";
+            return View("List", viewModel);
+        }
+
     }
-</div>
-<div>
-    Listing 21. Posts action
-</div>
+}
+
+</pre>
+
 <div>
     Our controller and action is ready and it's time to work on the view.
 </div>
@@ -1797,7 +1474,7 @@ namespace MyBlog1.Repositories
 <div>
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1807,7 +1484,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1821,7 +1498,7 @@ namespace MyBlog1.Repositories
 <div>
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1838,7 +1515,7 @@ namespace MyBlog1.Repositories
 <div>
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1854,7 +1531,7 @@ namespace MyBlog1.Repositories
     When it's off, the icon is grey ( ).
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1867,7 +1544,7 @@ namespace MyBlog1.Repositories
     Create the home page
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1893,7 +1570,7 @@ namespace MyBlog1.Repositories
 <div>
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1903,7 +1580,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1913,7 +1590,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1944,7 +1621,7 @@ namespace MyBlog1.Repositories
     Go to the website of bootstrap and choose Examples and starter template.
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1956,7 +1633,7 @@ namespace MyBlog1.Repositories
 <div>
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1966,7 +1643,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1976,7 +1653,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -1986,7 +1663,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2011,7 +1688,7 @@ namespace MyBlog1.Repositories
     Select the file bower.json and choose Manage Bower Packages
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2023,7 +1700,7 @@ namespace MyBlog1.Repositories
 <div>
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2033,7 +1710,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2043,7 +1720,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2068,7 +1745,7 @@ namespace MyBlog1.Repositories
     Jquery-validation-unobtrusive : 3.2.6.
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2082,7 +1759,7 @@ namespace MyBlog1.Repositories
     following code :
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2111,7 +1788,7 @@ namespace MyBlog1.Repositories
     shrink-to-fit=no"&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2124,7 +1801,7 @@ namespace MyBlog1.Repositories
     &lt;title&gt;@ViewData["Title"] - MyBlog&lt;/title&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2172,7 +1849,7 @@ namespace MyBlog1.Repositories
 <div>
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2207,7 +1884,7 @@ namespace MyBlog1.Repositories
     &lt;a class="navbar-brand" href="#"&gt;My Blog&lt;/a&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2273,7 +1950,7 @@ namespace MyBlog1.Repositories
     &lt;/nav&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2286,7 +1963,7 @@ namespace MyBlog1.Repositories
     &lt;div class="container"&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2296,7 +1973,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2306,7 +1983,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2316,7 +1993,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2326,7 +2003,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2353,7 +2030,7 @@ namespace MyBlog1.Repositories
     &lt;/div&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2366,7 +2043,7 @@ namespace MyBlog1.Repositories
     &lt;/div&gt;&lt;!-- /.container --&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2394,7 +2071,7 @@ namespace MyBlog1.Repositories
     &lt;/div&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2477,7 +2154,7 @@ namespace MyBlog1.Repositories
     &lt;/environment&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2496,7 +2173,7 @@ namespace MyBlog1.Repositories
     &lt;/html&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2510,7 +2187,7 @@ namespace MyBlog1.Repositories
     following code :
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2541,7 +2218,7 @@ namespace MyBlog1.Repositories
     }
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2556,7 +2233,7 @@ namespace MyBlog1.Repositories
 <div>
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2566,7 +2243,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2581,7 +2258,7 @@ namespace MyBlog1.Repositories
     there is one that could assist with this file type.
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2593,7 +2270,7 @@ namespace MyBlog1.Repositories
 <div>
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2609,7 +2286,7 @@ namespace MyBlog1.Repositories
     this:
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2622,7 +2299,7 @@ namespace MyBlog1.Repositories
     &lt;!DOCTYPE html&gt; &lt;!-- Required meta tags --&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2648,7 +2325,7 @@ namespace MyBlog1.Repositories
     shrink-to-fit=no"&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2664,7 +2341,7 @@ namespace MyBlog1.Repositories
     &lt;!-- custom CSS --&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2689,7 +2366,7 @@ namespace MyBlog1.Repositories
     &lt;/html&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2702,7 +2379,7 @@ namespace MyBlog1.Repositories
     Bootstrap requires the use of the HTML5 doctype.
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2724,7 +2401,7 @@ namespace MyBlog1.Repositories
     &lt;/html&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2734,7 +2411,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2753,7 +2430,7 @@ namespace MyBlog1.Repositories
     &lt;meta charset="utf-8"&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2763,7 +2440,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2779,7 +2456,7 @@ namespace MyBlog1.Repositories
     devices, add the responsive viewport meta tag to your &lt;head&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2793,7 +2470,7 @@ namespace MyBlog1.Repositories
     shrink-to-fit=no"&gt;
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2803,7 +2480,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2819,7 +2496,7 @@ namespace MyBlog1.Repositories
     staging and production).
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2838,7 +2515,7 @@ namespace MyBlog1.Repositories
     should serve the minified versions and generally from a CDN.
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2848,7 +2525,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2858,7 +2535,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2871,7 +2548,7 @@ namespace MyBlog1.Repositories
     Part 2
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2884,7 +2561,7 @@ namespace MyBlog1.Repositories
     Part 3
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2894,7 +2571,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2904,7 +2581,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2914,7 +2591,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2924,7 +2601,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 
@@ -2934,7 +2611,7 @@ namespace MyBlog1.Repositories
 
 </div>
 <div>
-<br />
+    <br />
 
 
 

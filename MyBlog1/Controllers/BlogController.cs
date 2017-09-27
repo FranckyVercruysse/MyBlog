@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using MyBlog1.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog1.Models.View_Models;
+using MyBlog1.Repositories;
 
 namespace MyBlog1.Controllers
 {
