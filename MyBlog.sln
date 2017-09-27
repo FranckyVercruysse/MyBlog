@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog1", "MyBlog1\MyBlog1.csproj", "{F4748CD7-4422-44CE-BB8F-771D52E2211D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F90C2C8-9D70-4BA8-9177-40112C163C8A}"
 	ProjectSection(SolutionItems) = preProject
 		Myblog1.html = Myblog1.html
+		SyntaxHighlighter.html = SyntaxHighlighter.html
 	EndProjectSection
 EndProject
 Global

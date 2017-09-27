@@ -114,68 +114,75 @@
     Here is our Post class.
 </div>
 
+<br />
 
-<script type="text/javascript" src="syntaxhighlighter.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
 
-<script type="text/syntaxhighlighter" class="brush: js">
-    <![CDATA[
-    function foo()
-    {
-    if (counter <= 10)
-    return;
-    // it works!
-    }
-    ]]>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+
+<script language='javascript' type='text/javascript'>
+    SyntaxHighlighter.config.bloggerMode = true;
+    SyntaxHighlighter.all();
 </script>
-<code>
-    using System;
-    using System.Collections.Generic;
 
-    namespace MyBlog1.Models
-    {
+<pre class="brush: csharp; highlight:[3,4,5]">
+
+using System;
+using System.Collections.Generic;
+
+namespace MyBlog1.Models
+{
     public class Post
     {
-    public int Id { get; set; }
+        public int Id { get; set; }
 
-    public string Title { get; set; }
+        public string Title { get; set; }
 
-    public string ShortDescription { get; set; }
+        public string ShortDescription { get; set; }
 
-    public string Description { get; set; }
+        public string Description { get; set; }
 
-    public string Meta { get; set; }
+        public string Meta { get; set; }
 
-    public string UrlSlug { get; set; }
+        public string UrlSlug { get; set; }
 
-    public bool Published { get; set; }
+        public bool Published { get; set; }
 
-    public DateTime PostedOn { get; set; }
+        public DateTime PostedOn { get; set; }
 
-    public DateTime? Modified { get; set; }
+        public DateTime? Modified { get; set; }
 
-    public int CategoryId { get; set; }
-    public Category Category { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
-    public ICollection<PostTag>
-        PostTags { get; set; }
-        }
-        }
+        public ICollection&gt;> PostTags { get; set; }
+    }
+}
 
-</code>
+
+</pre>
+
+
+
 <div>
     Most of the properties are self-explanatory. The UrlSlug property is an
-    alternate for the Title property to use in address.
+    alternate for the Title property to use in the web address.
 </div>
 <div>
     For example, if we have a post with title “Advanced Linq in C#” published
     on August 2017, we are going to create the urls such that the post can be
     accessed by the address http://localhost/archive/2017/8/Advanced Linq in
-    C#. The post title may contain special characters (in this example there is
-    a “#”) and not all the servers can handle those requests having special
+    C#'. The post title may contain special characters (in this example :
+    a “#” and spaces) and not all the servers can handle those requests having special
     characters. Instead of using the Title property directly in the url we have
     to use some alternate text that resembles the post title and that is called
     as an URL Slug.
 </div>
+<br />
 <div>
     URL Slug
 </div>
@@ -188,9 +195,8 @@
     The Meta property is used to store the metadata description for the post
     and it’s used for SEO.
 </div>
-<div>
+
     <br />
-</div>
 <div>
     The PostTags property is a navigation property. Navigation properties hold
     other entities that are related to this entity. In this case, the PostTags
@@ -208,133 +214,108 @@
     If you specify ICollection&lt;T&gt;, EF creates a HashSet&lt;T&gt;
     collection by default.
 </div>
-<div>
+
     <br />
-</div>
-<div>
+
+
     <br />
-</div>
+
 <div>
     The Category and Tag classes are simple as shown below. We have used the
     UrlSlug property for the same reason that we discussed above.
 </div>
-<div>
+
     <br />
-</div>
-<div>
+
+<pre class="brush: csharp; highlight:[3,4,5]">
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MyBlog1.Models
+{
     public class Category
-</div>
-<div>
     {
-</div>
-<div>
-    public int Id { get; set; }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public string Name { get; set; }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public string UrlSlug { get; set; }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public string Description { get; set; }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public ICollection&lt;Post&gt; Posts { get; set; }
-</div>
-<div>
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string UrlSlug { get; set; }
+
+        public string Description { get; set; }
+
+        public ICollection&lt;> Posts { get; set; }
     }
-</div>
-<div>
-    <br />
-</div>
-<div>
+}
+
+</pre>
+
+<br />
+
+<pre class="brush: csharp; highlight:[3,4,5]">
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MyBlog1.Models
+{
     public class Tag
-</div>
-<div>
     {
-</div>
-<div>
-    public int Id { get; set; }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public string Name { get; set; }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public string UrlSlug { get; set; }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public string Description { get; set; }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public ICollection &lt;PostTag&gt; PostTags { get; set; }
-</div>
-<div>
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string UrlSlug { get; set; }
+
+        public string Description { get; set; }
+
+        public ICollection&lt;PostTag> PostTags { get; set; }
     }
-</div>
-<div>
-    <br />
-</div>
+}
+
+</pre>
+
+
+
+
+
+<br /><br /><br />
+
+
 <div>
     Here is the PostTag class.
 </div>
-<div>
+
+<pre class="brush: csharp;">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MyBlog1.Models
+{
     public class PostTag
-</div>
-<div>
     {
-</div>
-<div>
-    public int Id { get; set; }
-</div>
-<div>
-    public int PostId { get; set; }
-</div>
-<div>
-    public Post Post { get; set; }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public int TagId { get; set; }
-</div>
-<div>
-    public Tag Tag { get; set; }
-</div>
-<div>
+        public int Id { get; set; }
+        public int PostId { get; set; }
+        public Post Post { get; set; }
+
+        public int TagId { get; set; }
+        public Tag Tag { get; set; }
     }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    <br />
-</div>
+}
+
+</pre>
+<br />
+
+
+
+
+
 <div>
     The PostId property is a foreign key, and the corresponding navigation
     property is Post. An PostTag entity is associated with one Post entity, so
@@ -347,7 +328,10 @@
     property is Tag. An PostTag entity is associated with one Tag entity.
 </div>
 <div>
-    <br />
+<br />
+
+
+
 </div>
 <div>
     Create the Database Context
@@ -368,77 +352,82 @@
     In the Data folder create a new class file named BloggingContext.cs, and
     replace the template code with the following code:
 </div>
-<div>
+
+<br />
+<pre class="brush: csharp;">
+
+using Microsoft.EntityFrameworkCore;
+using MyBlog1.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MyBlog1.Data
+{
     public class BloggingContext : DbContext
-</div>
-<div>
     {
-</div>
-<div>
-    public BloggingContext(DbContextOptions&lt;BloggingContext&gt; options)
-</div>
-<div>
-    : base(options)
-</div>
-<div>
-    { }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-</div>
-<div>
-    {
-</div>
-<div>
-    modelBuilder.Entity&lt;Post&gt;().ToTable("Post");
-</div>
-<div>
-    modelBuilder.Entity&lt;Tag&gt;().ToTable("Tag");
-</div>
-<div>
-    modelBuilder.Entity&lt;Category&gt;().ToTable("Category");
-</div>
-<div>
+        public BloggingContext(DbContextOptions&lt;BloggingContext> options)
+            : base(options)
+        { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity&lt;Post>().ToTable("Post");
+            modelBuilder.Entity&lt;Tag>().ToTable("Tag");
+            modelBuilder.Entity&lt;Category>().ToTable("Category");
+        }
+
+        public DbSet&lt;Post> Posts { get; set; }
+        public DbSet&lt;Tag> Tags { get; set; }
+        public DbSet&lt;Category> Categories { get; set; }
+        public DbSet&lt;PostTag> PostTags { get; set; }
     }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public DbSet&lt;Post&gt; Posts { get; set; }
-</div>
-<div>
-    public DbSet&lt;Tag&gt; Tags { get; set; }
-</div>
-<div>
-    public DbSet&lt;Category&gt; Categories { get; set; }
-</div>
-<div>
-    public DbSet&lt;PostTag&gt; PostTags { get; set; }
-</div>
-<div>
-    }
-</div>
-<div>
-    <br />
-</div>
+}
+
+
+</pre>
+
+
+
+
+
+
 <div>
     The DbContext must have an instance of DbContextOptions in order to
     execute. We will use dependency injection, so we pass options via
     constructor dependency injection.
 </div>
-<div>
-    <br />
-</div>
-<div>
-    <br />
-</div>
-<div>
-    <br />
-</div>
+
+<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+
 <div>
     Register the context with dependency injection
 </div>
@@ -452,33 +441,75 @@
     To register BloggingContext as a service, open Startup.cs, and add the
     highlighted lines to the ConfigureServices method.
 </div>
-<div>
-    <br />
-</div>
-<div>
-    public void ConfigureServices(IServiceCollection services)
-</div>
-<div>
+
+<br />
+
+<pre class="brush: csharp; highlight:[25]">
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MyBlog1.Data;
+using MyBlog1.Repositories;
+
+namespace MyBlog1
+{
+    public class Startup
     {
-</div>
-<div>
-    services.AddMvc();
-</div>
-<div>
-    <br />
-</div>
-<div>
-    services.AddDbContext&lt;BloggingContext&gt;(options =&gt;
-    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-</div>
-<div>
-</div>
-<div>
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+
+            services.AddDbContext&lt;BloggingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped&lt;IBlogRepository, BlogRepository>();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseStaticFiles();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
     }
-</div>
-<div>
-    <br />
-</div>
+}
+
+</pre>
+
+<br />
+
+
+
+
+
+
+
+
 <div>
     The name of the connection string is passed in to the context by calling a
     method on a DbContextOptionsBuilder object. For local development, the
@@ -489,50 +520,41 @@
     Open the appsettings.json file and add a connection string as shown in the
     following example.
 </div>
-<div>
-    <br />
-</div>
-<div>
-    {
-</div>
-<div>
-    "ConnectionStrings": {
-</div>
-<div>
-    "DefaultConnection":
-    "Server=(localdb)\\mssqllocaldb;Database=MyBlog;Trusted_Connection=True;MultipleActiveResultSets=true"
-</div>
-<div>
-    //"DefaultConnection": "Server=LAPTOP-4C8VJ1E2;Database=MyBlog;Integrated
-    Security=True;MultipleActiveResultSets=true"
-</div>
-<div>
-    },
-</div>
-<div>
-    "Logging": {
-</div>
-<div>
+
+<br />
+
+
+
+
+
+
+
+
+
+<br />
+
+
+<pre class="brush: csharp;">
+
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=MyBlog16;Trusted_Connection=True;MultipleActiveResultSets=true"
+    //"DefaultConnection": "Server=LAPTOP-4C8VJ1E2;Database=MyBlog;Integrated Security=True;MultipleActiveResultSets=true"
+  },
+  "Logging": {
     "IncludeScopes": false,
-</div>
-<div>
     "LogLevel": {
-</div>
-<div>
-    "Default": "Warning"
-</div>
-<div>
+      "Default": "Warning"
     }
-</div>
-<div>
-    }
-</div>
-<div>
-    }
-</div>
-<div>
-    <br />
-</div>
+  }
+}
+
+</pre>
+
+
+
+
+
 <div>
     Add code to initialize the database with test data
 </div>
@@ -553,133 +575,132 @@
     a database to be created when needed and loads test data into the new
     database.
 </div>
-<div>
-    <br />
-</div>
-<div>
-    public static void Initialize(BloggingContext context)
-</div>
-<div>
+
+<br />
+
+<pre class="brush: csharp;">
+
+using MyBlog1.Models;
+using System;
+using System.Linq;
+
+namespace MyBlog1.Data
+{
+    public class DbInitializer
     {
-</div>
-<div>
-    context.Database.EnsureCreated();
-</div>
-<div>
-    <br />
-</div>
-<div>
-    // Look for any posts.
-</div>
-<div>
-    if (context.Posts.Any())
-</div>
-<div>
-    {
-</div>
-<div>
-    return; // DB has been seeded
-</div>
-<div>
+        public static void Initialize(BloggingContext context)
+        {
+            context.Database.EnsureCreated();
+
+            // Look for any posts.
+            if (context.Posts.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var tags = new Tag[]
+            {
+            new Tag{ Description=null, Name ="CSharp", UrlSlug="csharp"},
+            new Tag{ Description=null, Name ="ASP", UrlSlug="asp"},
+            new Tag{ Description=null, Name ="ASP.NET", UrlSlug="asp_net"},
+            new Tag{ Description=null, Name ="JavaScript", UrlSlug="javascript"},
+            new Tag{ Description=null, Name ="Silverlight", UrlSlug="silverlight"},
+            new Tag{ Description=null, Name ="Html", UrlSlug="html"},
+            new Tag{ Description=null, Name ="Css", UrlSlug="css"}
+            };
+            foreach (Tag t in tags)
+            {
+                context.Tags.Add(t);
+            }
+            context.SaveChanges();
+
+            var categories = new Category[]
+            {
+                new Category{ Description =null, Name ="Programming", UrlSlug ="programming" },
+                new Category{ Description =null, Name ="Humor", UrlSlug ="humor" },
+            };
+            foreach (Category c in categories)
+            {
+                context.Categories.Add(c);
+            }
+            context.SaveChanges();
+
+            var posts = new Post[]
+            {
+            new Post{Title="My Mouse Is Missing",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Meta="ASP",UrlSlug="my_mouse_is_missing", Published=true, PostedOn=new DateTime(2012,8,5), Modified=null, CategoryId=1 },
+            new Post{Title="Computers Have Souls",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="computers_have_souls",Published=true, PostedOn =new DateTime(2013,7,15), Modified=null, CategoryId=1  },
+            new Post{Title="I'm Genius" ,ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="im_genius",Published=true, PostedOn =new DateTime(2014,6,15), Modified=null , CategoryId=1  },
+            new Post{Title="Best Practices in Programming",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="best_practices_in_programming",Published=true, PostedOn =new DateTime(2015,6,21), Modified=null, CategoryId=1  },
+            new Post{Title="Computers Are Awesome",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="computers_are_awesome",Published=true, PostedOn =new DateTime(2016,1,6), Modified=null , CategoryId=1 },
+            new Post{Title="My Coding Is Bad",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="my_coding_is_bad",Published=true, PostedOn =new DateTime(2017,3,20), Modified=null , CategoryId=1 },
+            new Post{Title="I Like Steve",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="i_like_steve",Published=true, PostedOn =new DateTime(2013,9,10), Modified=null , CategoryId=1 },
+            new Post{Title="How JavaScript Works",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="how_javascript_works",Published=true, PostedOn =new DateTime(2013,7,15), Modified=null,CategoryId=1  },
+            new Post{Title="Best Practices in Client-Side Coding",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="best_practices_in_client_side_coding",Published=true,PostedOn =new DateTime(2016,5,8), Modified=null , CategoryId=1 },
+            new Post{Title="Mobile Programming",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="mobile_programming",Published=true, PostedOn =new DateTime(2014,12,25), Modified=null , CategoryId=1 },
+            new Post{Title="How To Create Blog",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="how_to_create_blog",Published=true, PostedOn =new DateTime(2015,4,28), Modified=null, CategoryId=1 },
+            new Post{Title="Introduction To Agile",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="introduction_to_agile",Published=true, PostedOn =new DateTime(2017,2,14), Modified=null, CategoryId=1 },
+            new Post{Title="HTML5 And CSS3",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="html5_and_ccs3",Published=true, PostedOn =new DateTime(2016,10,25), Modified=null , CategoryId=1 },
+            new Post{Title="Eat, Pray And Love",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="eat_pray_and_love",Published=true, PostedOn =new DateTime(2016,7,5), Modified=null, CategoryId=1  },
+            new Post{Title="Responsive Websites",ShortDescription="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>",Description="<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>", Meta ="ASP", UrlSlug="responsive_websites",Published=true, PostedOn =new DateTime(2016,5,27), Modified=null , CategoryId=1 }
+            };
+            foreach (Post p in posts)
+            {
+                context.Posts.Add(p);
+            }
+            context.SaveChanges();
+
+            var posttags = new PostTag[]
+            {
+            new PostTag{PostId=1,TagId=1},
+            new PostTag{PostId=1,TagId=3},
+            new PostTag{PostId=2,TagId=1},
+            new PostTag{PostId=3,TagId=1},
+            new PostTag{PostId=3,TagId=3},
+            new PostTag{PostId=4,TagId=1},
+            new PostTag{PostId=4,TagId=3},
+            new PostTag{PostId=5,TagId=1},
+            new PostTag{PostId=5,TagId=3},
+            new PostTag{PostId=6,TagId=1},
+            new PostTag{PostId=6,TagId=3},
+            new PostTag{PostId=7,TagId=1},
+            new PostTag{PostId=7,TagId=3},
+            new PostTag{PostId=8,TagId=1},
+            new PostTag{PostId=8,TagId=1},
+            new PostTag{PostId=8,TagId=2},
+            new PostTag{PostId=9,TagId=1},
+            new PostTag{PostId=9,TagId=2},
+            new PostTag{PostId=10,TagId=1},
+            new PostTag{PostId=10,TagId=2},
+            new PostTag{PostId=11,TagId=1},
+            new PostTag{PostId=11,TagId=2},
+            new PostTag{PostId=12,TagId=1},
+            new PostTag{PostId=12,TagId=3},
+            new PostTag{PostId=13,TagId=3},
+            new PostTag{PostId=14,TagId=3},
+            new PostTag{PostId=15,TagId=3},
+            };
+            foreach (PostTag pt in posttags)
+            {
+                context.PostTags.Add(pt);
+            }
+            context.SaveChanges();
+        }
     }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    var tags = new Tag[]
-</div>
-<div>
-    {
-</div>
-<div>
-    new Tag{ Description=null, Name ="CSharp", UrlSlug="csharp"},
-</div>
-<div>
-    new Tag{ Description=null, Name ="ASP", UrlSlug="asp"},
-</div>
-<div>
-    new Tag{ Description=null, Name ="ASP.NET", UrlSlug="asp_net"},
-</div>
-<div>
-    new Tag{ Description=null, Name ="JavaScript", UrlSlug="javascript"},
-</div>
-<div>
-    new Tag{ Description=null, Name ="Silverlight", UrlSlug="silverlight"},
-</div>
-<div>
-    new Tag{ Description=null, Name ="Html", UrlSlug="html"},
-</div>
-<div>
-    new Tag{ Description=null, Name ="Css", UrlSlug="css"}
-</div>
-<div>
-    };
-</div>
-<div>
-    foreach (Tag t in tags)
-</div>
-<div>
-    {
-</div>
-<div>
-    context.Tags.Add(t);
-</div>
-<div>
-    }
-</div>
-<div>
-    context.SaveChanges();
-</div>
-<div>
-    <br />
-</div>
-<div>
-    var categories = new Category[]
-</div>
-<div>
-    {
-</div>
-<div>
-    new Category{ Description =null, Name ="Programming", UrlSlug
-    ="programming" },
-</div>
-<div>
-    new Category{ Description =null, Name ="Humor", UrlSlug ="humor" },
-</div>
-<div>
-    };
-</div>
-<div>
-    foreach (Category c in categories)
-</div>
-<div>
-    {
-</div>
-<div>
-    context.Categories.Add(c);
-</div>
-<div>
-    }
-</div>
-<div>
-    context.SaveChanges();
-</div>
-<div>
-    <br />
-</div>
-<div>
-    var posts = new Post[]
-</div>
-<div>
-    { … omitted for brevity…
-</div>
-<div>
-    <br />
-</div>
-<div>
-    <br />
-</div>
+}
+
+
+
+
+</pre>
+
+
+
+
+
+
+<br />
+
+<br />
 <div>
     The code checks if there are any posts in the database, and if not, it
     assumes the database is new and needs to be seeded with test data. It loads
@@ -699,114 +720,82 @@
 <div>
     ⦁ Dispose the context when the seed method is done.
 </div>
-<div>
-    <br />
-</div>
-<div>
-    <br />
-</div>
-<div>
-    <br />
-</div>
-<div>
+<br />
+<br />
+<br />
+
+
+<pre class="brush: csharp; highlight:[16,21,22]">
+
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using MyBlog1.Data;
+using System;
+
+namespace MyBlog1
+{
     public class Program
-</div>
-<div>
     {
-</div>
-<div>
-    public static void Main(string[] args)
-</div>
-<div>
-    {
-</div>
-<div>
-    var host = BuildWebHost(args);
-</div>
-<div>
-    <br />
-</div>
-<div>
-    using (var scope = host.Services.CreateScope())
-</div>
-<div>
-    {
-</div>
-<div>
-    var services = scope.ServiceProvider;
-</div>
-<div>
-    try
-</div>
-<div>
-    {
-</div>
-<div>
-    var context = services.GetRequiredService&lt;BloggingContext&gt;();
-</div>
-<div>
-    DbInitializer.Initialize(context);
-</div>
-<div>
+        public static void Main(string[] args)
+        {
+            var host = BuildWebHost(args);
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService&lt;BloggingContext>();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService&lt;ILogger&lt;Program>>();
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                }
+            }
+
+            host.Run();
+        }
+
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup&lt;Startup>()
+                .Build();
     }
-</div>
-<div>
-    catch (Exception ex)
-</div>
-<div>
-    {
-</div>
-<div>
-    var logger = services.GetRequiredService&lt;ILogger&lt;Program&gt;&gt;();
-</div>
-<div>
-    logger.LogError(ex, "An error occurred while seeding the database.");
-</div>
-<div>
-    }
-</div>
-<div>
-    }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    host.Run();
-</div>
-<div>
-    }
-</div>
-<div>
-    <br />
-</div>
-<div>
-    public static IWebHost BuildWebHost(string[] args) =&gt;
-</div>
-<div>
-    WebHost.CreateDefaultBuilder(args)
-</div>
-<div>
-    .UseStartup&lt;Startup&gt;()
-</div>
-<div>
-    .Build();
-</div>
-<div>
-    }
-</div>
-<div>
-    <br />
-</div>
+}
+
+
+</pre>
+
+<br />
+
+
+
+
+
+
+
+<br />
+
 <div>
     Now the first time you run the application, the database will be created
     and seeded with test data. Whenever you change your data model, you can
     delete the database, update your seed method, and start afresh with a new
-    database the same way. In later tutorials, you'll see how to modify the
+    database the same way. Later in this blog, you'll see how to modify the
     database when the data model changes, without deleting and re-creating it.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Repository Pattern
@@ -830,27 +819,39 @@
     Let’s create an interface IBlogRepository in this Repositories folder with
     couple of method definition.
 </div>
-<div>
-    <br />
-</div>
-<div>
+
+<br />
+
+
+<pre class="brush: csharp;">
+
+using MyBlog1.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MyBlog1.Repositories
+{
     public interface IBlogRepository
-</div>
-<div>
     {
-</div>
-<div>
-    IList&lt;Post&gt; Posts(int pageNo, int pageSize);
-</div>
-<div>
-    int TotalPosts();
-</div>
-<div>
+        IList&lt;Post> Posts(int pageNo, int pageSize);
+        int TotalPosts();
     }
-</div>
-<div>
-    <br />
-</div>
+}
+
+
+</pre>
+
+
+
+
+
+
+
+
+
+
 <div>
     The Posts method is used to return the latest published posts based on
     pagination values. The TotalPosts method is used to return the total number
@@ -859,9 +860,16 @@
 <div>
     We are going to fill the interface with more methods later.
 </div>
-<div>
-    <br />
-</div>
+
+<br />
+
+
+
+
+
+
+
+
 <div>
     In the repositories folder let’s create a class BlogRepository and
     implement the interface.
@@ -888,7 +896,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public IList&lt;Post&gt; Posts(int pageNo, int pageSize)
@@ -903,7 +918,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public int TotalPosts()
@@ -927,7 +949,14 @@
     Service in the ConfigureServices method in the StartUp class.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     // This method gets called by the runtime. Use this method to add services
@@ -943,7 +972,14 @@
     services.AddMvc();
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     services.AddDbContext&lt;BloggingContext&gt;(options =&gt;
@@ -956,7 +992,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Here the implementation of the BlogRepository
@@ -983,7 +1026,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public IList&lt;Post&gt; Posts(int pageNo, int pageSize)
@@ -1022,7 +1072,14 @@
     .ToList();
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     return posts;
@@ -1031,7 +1088,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public int TotalPosts()
@@ -1049,20 +1113,41 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Create controller and actions
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Let’s create a controller by right-clicking at the Controllers folder -&gt;
     Add -&gt; Controller. Name the controller as BlogController.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     In MVC architecture, Controller is the component that handles requests from
@@ -1073,13 +1158,27 @@
     from the class Controller and whose name ends with "Controller".
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Create a constructor that takes IBlogRepository as input parameter.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public class BlogController : Controller
@@ -1091,7 +1190,14 @@
     private readonly IBlogRepository _blogRepository;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public BlogController(IBlogRepository blogRepository)
@@ -1106,7 +1212,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
 </div>
@@ -1119,14 +1232,28 @@
     instance of IBlogRepository into BlogController.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Create a method with name Posts that takes an input parameter p for page
     number,
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public class BlogController : Controller
@@ -1138,7 +1265,14 @@
     private readonly IBlogRepository _blogRepository;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public BlogController(IBlogRepository blogRepository)
@@ -1153,7 +1287,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public ViewResult Posts(int p = 1)
@@ -1168,7 +1309,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
 </div>
@@ -1176,7 +1324,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Any public method in a controller can be called as an action. Usually
@@ -1188,7 +1343,14 @@
     Other types of ActionResult :
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Action Result Helper Method Description
@@ -1251,7 +1413,14 @@
     method must return a null result (void).
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     The parameter p in the Posts action represents the page number. The default
@@ -1272,7 +1441,14 @@
     properties related to both domain as well as UI.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Create a folder ViewModels under the Models folder. Create a class with
@@ -1280,7 +1456,14 @@
     collection of active posts and their total number.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public class ListViewModel
@@ -1298,7 +1481,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Here is the initial implementation of the Posts action.
@@ -1399,13 +1589,34 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     We are passing the title that has to be set in the view through the
@@ -1425,10 +1636,24 @@
     views.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Instead of getting the latest posts through _blogRepository in Posts action
@@ -1444,7 +1669,14 @@
     const int postsPerPage = 3;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public ListViewModel(IBlogRepository _blogRepository, int p)
@@ -1465,7 +1697,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     public IList&lt;Post&gt; Posts { get; private set; }
@@ -1477,7 +1716,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Here is our modified action.
@@ -1551,17 +1797,38 @@
 <div>
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
 </div>
 <div>
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     We are going to use Chrome DevTools' Device Mode to build mobile-first,
@@ -1571,7 +1838,14 @@
 <div>
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     When Device Mode is on, the icon is blue ( ).
@@ -1580,13 +1854,27 @@
     When it's off, the icon is grey ( ).
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Create the home page
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     In creating the home page, we will be doing most of the plumbing work
@@ -1605,13 +1893,34 @@
 <div>
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     In mobile devices, we want the site to flow as a single column. In tablets,
@@ -1635,21 +1944,56 @@
     Go to the website of bootstrap and choose Examples and starter template.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Choose : View page source.
@@ -1667,18 +2011,46 @@
     Select the file bower.json and choose Manage Bower Packages
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Bootstrap : 4.0.0-apha.6
@@ -1696,14 +2068,28 @@
     Jquery-validation-unobtrusive : 3.2.6.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Go to the _Layout.cshtml file and replace the contents of the file with the
     following code :
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;!DOCTYPE html&gt;
@@ -1725,13 +2111,27 @@
     shrink-to-fit=no"&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;title&gt;@ViewData["Title"] - MyBlog&lt;/title&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;environment include="Development"&gt;
@@ -1772,7 +2172,14 @@
 <div>
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;/head&gt;
@@ -1800,7 +2207,14 @@
     &lt;a class="navbar-brand" href="#"&gt;My Blog&lt;/a&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;div class="collapse navbar-collapse" id="navbarsExampleDefault"&gt;
@@ -1859,25 +2273,67 @@
     &lt;/nav&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;div class="container"&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;div class="container body-content"&gt;
@@ -1897,13 +2353,27 @@
     &lt;/div&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;/div&gt;&lt;!-- /.container --&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     @RenderBody()
@@ -1924,7 +2394,14 @@
     &lt;/div&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;!-- jQuery first, then Tether, then Bootstrap JS. --&gt;
@@ -2000,7 +2477,14 @@
     &lt;/environment&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     @RenderSection("Scripts", required: false)
@@ -2012,14 +2496,28 @@
     &lt;/html&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Go to the site.css file and replace the contents of the file with the
     following code :
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     body {
@@ -2043,7 +2541,14 @@
     }
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Re-minify this file
@@ -2051,10 +2556,24 @@
 <div>
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     If your environment does not have the extension installed, open
@@ -2062,12 +2581,26 @@
     there is one that could assist with this file type.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     To set up our pages with the latest design and development standards we are
@@ -2076,13 +2609,27 @@
     this:
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;!DOCTYPE html&gt; &lt;!-- Required meta tags --&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;html lang="en"&gt;
@@ -2101,7 +2648,14 @@
     shrink-to-fit=no"&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;!-- Bootstrap CSS --&gt;
@@ -2110,7 +2664,14 @@
     &lt;!-- custom CSS --&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;/head&gt;
@@ -2128,13 +2689,27 @@
     &lt;/html&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Bootstrap requires the use of the HTML5 doctype.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;!DOCTYPE html&gt;
@@ -2149,10 +2724,24 @@
     &lt;/html&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Specifiy the character encoding for the HTML document.
@@ -2164,10 +2753,24 @@
     &lt;meta charset="utf-8"&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Bootstrap is developed mobile first, a strategy in which we optimize code
@@ -2176,17 +2779,38 @@
     devices, add the responsive viewport meta tag to your &lt;head&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     &lt;meta name="viewport" content="width=device-width, initial-scale=1,
     shrink-to-fit=no"&gt;
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     In the&lt;head&gt; section we see that the bootstrap css appears in two
@@ -2195,7 +2819,14 @@
     staging and production).
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     In the &lt;body&gt; we see the same two environment tag helpers for the
@@ -2207,38 +2838,108 @@
     should serve the minified versions and generally from a CDN.
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Part 2
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
     Part 3
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
 <div>
-    <br />
+<br />
+
+
+
+
+
+
+
 </div>
