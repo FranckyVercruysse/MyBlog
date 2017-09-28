@@ -5,8 +5,7 @@
     "bootstrap": "v4.0.0-alpha.6",
     "jquery": "2.2.0",
     "jquery-validation": "1.17.0",
-    "jquery-validation-unobtrusive": "3.2.6",
-    "highlight": "9.12.0"
+    "jquery-validation-unobtrusive": "3.2.6"
   },
   "resolutions": {
     "bootstrap": "v4.0.0-alpha.6",
