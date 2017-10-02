@@ -5,7 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>@ViewData["Title"] - MyBlog1</title>
+    <meta name="description" content="Blog Asp.Net">
+    <meta name="author" content="Francky Vercruysse">
+
+    <title>@ViewData["Title"] - MyBlog</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -19,49 +22,23 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 
-        <link href="~/css/csharp.min.css" rel="stylesheet" asp-append-version="true"  />
+        <link href="~/css/csharp.min.css" rel="stylesheet" asp-append-version="true" />
     </environment>
-    
+
 
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="#">My Blog</a>
+    <header>
+        -- Logo, Navigation & Search Bar--
+    </header>
 
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Posts <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
+    <div id="body">
+        -- Site Main content --
+    </div>
 
-
-    <div class="container">
-        <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-        </div>
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - MyBlog1</p>
-        </footer>
-    </div><!-- /.container -->
+    <footer>
+        -- Copyright information --
+    </footer>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <environment include="Development">
@@ -86,9 +63,9 @@
                 crossorigin="anonymous"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
 
-        
+
     </environment>
-    <script>hljs.initHighlightingOnLoad();</script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
