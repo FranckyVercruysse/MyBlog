@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog1", "MyBlog1\MyBlog1.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F90C2C8-9D70-4BA8-9177-40112C163C8A}"
 	ProjectSection(SolutionItems) = preProject
+		mainContent.html = mainContent.html
 		Myblog1.html = Myblog1.html
 		site_css.html = site_css.html
 		SyntaxHighlighter.html = SyntaxHighlighter.html

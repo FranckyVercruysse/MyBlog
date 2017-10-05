@@ -1,0 +1,30 @@
+﻿
+<h4>Create single and two-column layouts for main content</h4>
+
+If you re-look at <a href="#mockups">mockups</a>,
+our main content is split into a two-column layout for desktop screen
+and combined into a single column in mobile screen.
+In case of desktop, the first column contains the latest posts and the second column contains the sidebar.
+While in mobile screen, the sidebar falls below the main content.
+
+<h5>Grid system</h5>
+
+Bootstrap includes a  powerful mobile-first flexbox <a href="https://v4-alpha.getbootstrap.com/layout/grid/" target="_blank">grid system</a> for building layouts of all shapes and sizes.
+It’s based on a 12 column layout and has multiple tiers, one for each media query range.
+You can use it with Sass mixins or our predefined classes.
+
+Bootstrap’s grid system uses a series of containers, rows, and columns to layout and align content.
+It’s built with flexbox and is fully responsive.
+
+<h5>Complete the main content layout</h5>
+
+Our main content of home page is primarily divided into two things: latest posts and sidebar.
+If you remember the mockups, in case of mobile and tablets,
+we want both the latest posts section and sidebar to be displayed one below other as a single column
+but in case of desktops and large screens we want them to be placed aside.
+When they placed horizontally, we want the latest posts section to occupy 2/3rd of the total viewport size.
+
+To accomplish this, we've to create a row element (div) under the existing "#body" (div) element
+with two column elements (div).
+The first column element is decorated with col-md-8 and the second one with col-md-4.
+
