@@ -8,8 +8,21 @@
     <div class="row">
         <div class="col-md-8">
             <h1>Latest Posts</h1>
+
             @Html.Partial("_Pager", Model)
-            ...
+
+            @if (Model.Posts.Count > 0)
+            {
+                foreach (var post in Model.Posts)
+                {
+                    @Html.Partial("_PostTemplate", post)
+
+                }
+            }
+            else
+            {
+                <p>No posts found</p>
+            }
             @Html.Partial("_Pager", Model)
         </div>
 
