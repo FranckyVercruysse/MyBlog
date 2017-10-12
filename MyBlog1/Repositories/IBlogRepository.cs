@@ -10,5 +10,7 @@ namespace MyBlog1.Repositories
     {
         IList<Post> Posts(int pageNo, int pageSize);
         int TotalPosts();
+
+        Post Post(int year, int month, string titleSlug);
     }
 }

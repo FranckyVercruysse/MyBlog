@@ -44,8 +44,16 @@ namespace MyBlog1
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "Post",
+                    template: "Archive/{year}/{month}/{title}",
+                    defaults: new { controller = "Blog", action = "Post" }
+                   );
+
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Blog}/{action=Posts}/{id?}"
+                    );
+
             });
         }
     }

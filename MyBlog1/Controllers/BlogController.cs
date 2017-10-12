@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog1.Models.View_Models;
 using MyBlog1.Repositories;
+using System;
 
 namespace MyBlog1.Controllers
 {
@@ -22,5 +23,17 @@ namespace MyBlog1.Controllers
             return View("List", viewModel);
         }
 
+        public ViewResult Post(int year, int month, string title)
+        {
+            var post = _blogRepository.Post(year, month, title);
+
+            if (post == null)
+                throw new Exception("Post not found");
+
+            if (post.Published == false && User.Identity.IsAuthenticated == false)
+                throw new Exception("The post is not published");
+
+            return View(post);
+        }
     }
 }

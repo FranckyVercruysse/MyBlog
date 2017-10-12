@@ -34,5 +34,16 @@ namespace MyBlog1.Repositories
         {
             return _context.Posts.Where(p => p.Published).Count();
         }
+
+        public Post Post(int year, int month, string titleSlug)
+        {
+            var post = _context.Posts
+                        .Where(p => p.PostedOn.Year == year && p.PostedOn.Month == month && p.UrlSlug.Equals(titleSlug))
+                        .Include(s => s.PostTags)
+                                .ThenInclude(e => e.Tag)
+                        .Include(c => c.Category)
+                        .Single();
+            return post;
+        }
     }
 }
