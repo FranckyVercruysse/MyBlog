@@ -1,0 +1,40 @@
+﻿@model MyBlog.Models.Post
+
+<article>
+    <h2>@Model.Title</h2>
+    
+
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <i class="fa fa-folder-open" aria-hidden="true"></i>
+            <a href="#">
+                @Model.Category.Name
+            </a>
+            <!--tag list -->
+            <i class="fa fa-tag" aria-hidden="true"></i>
+            <a href="#">tag 1</a><a href="#">tag 2</a><a href="#">tag 3</a>
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <i class="fa fa-comment-o" aria-hidden="true"></i><a href="#">20 Comments</a>
+            <i class="fa fa-clock-o" aria-hidden="true"></i>@Model.PostedOn.ToString("dd/M/yyyy")
+        </div>
+    </div>
+
+    <!--Short Description-->
+    <div class="post-body">
+        @Html.Raw(Model.ShortDescription)
+    </div>
+
+    <p class="text-right">
+        <a asp-controller="blog" asp-action="post"
+           asp-route-year="@Model.PostedOn.Year"
+           asp-route-month="@Model.PostedOn.Month"
+           asp-route-day="@Model.PostedOn.Day"
+           asp-route-title="@Model.UrlSlug"
+           class="text-right"
+           title="continue reading...">
+            continue reading...
+        </a>
+    </p>
+    <hr>
+</article>
