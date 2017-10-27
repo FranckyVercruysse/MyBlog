@@ -42,6 +42,7 @@ namespace MyBlog.Repositories
                         .Include(s => s.PostTags)
                                 .ThenInclude(e => e.Tag)
                         .Include(c => c.Category)
+                        .AsNoTracking()
                         .Single();
             return post;
         }
