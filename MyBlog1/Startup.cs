@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyBlog1.Data;
-using MyBlog1.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyBlog1
 {
@@ -21,9 +24,7 @@ namespace MyBlog1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
             services.AddDbContext<BloggingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IBlogRepository, BlogRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,16 +45,8 @@ namespace MyBlog1
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "Post",
-                    template: "Archive/{year}/{month}/{title}",
-                    defaults: new { controller = "Blog", action = "Post" }
-                   );
-
-                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Blog}/{action=Posts}/{id?}"
-                    );
-
+                    template: "{controller=Posts}/{action=Index}/{id?}");
             });
         }
     }

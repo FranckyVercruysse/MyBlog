@@ -1,7 +1,106 @@
 ﻿@{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "About me";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<p>Use this area to provide additional information.</p>
+
+<style>
+    .fa {
+        padding: 20px;
+        font-size: 30px;
+        width: 70px;
+        text-align: center;
+        text-decoration: none;
+        margin: 5px 2px;
+        border-radius: 50%;
+    }
+
+        .fa:hover {
+            opacity: 0.7;
+        }
+
+    .fa-facebook {
+        background: #3B5998;
+        color: white;
+    }
+
+    .fa-twitter {
+        background: #55ACEE;
+        color: white;
+    }
+
+    .fa-google {
+        background: #dd4b39;
+        color: white;
+    }
+
+    .fa-linkedin {
+        background: #007bb5;
+        color: white;
+    }
+
+    .fa-youtube {
+        background: #bb0000;
+        color: white;
+    }
+
+    .fa-codepen {
+        background: #bb0000;
+        color: white;
+    }
+
+    .fa-github {
+        background: #bb0000;
+        color: white;
+    }
+
+    .fa-stack-overflow {
+        background: #bb0000;
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <h1>About Me</h1>
+
+    <div class="row">
+        <div class="col-md-3 col-sm-3">
+            @*<img class="img-thumbnail img-responsive photo" src="http://placehold.it/300x350" />*@
+            <img class="img-thumbnail img-responsive" src="~/Images/FranckyThassos2.png" />
+        </div>
+        <div class="col-md-9 col-sm-9">
+            <p>
+                My name is Francky Vercruysse. I'm a programmer and blogger. I work out of my home
+                office in Roeselare, Belgium.
+            </p>
+
+            <p>
+                I'm excited about ASP.NET, c#, javascript, Client-Side JavaScript Frameworks, Relational Databases, NoSQL,
+                Azure Cloud  and above all, the open web.
+                I still have to learn a lot but I enjoy expanding my knowledge in this area.
+            </p>
+            <p>
+                The purpose of writing this blog is to learn to express my knowledge in English,
+                to show to my clients or future employers
+                my way of programming. I also hope I can help other programmers (students) with this blog.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Add font awesome icons -->
+        <a href="" class="btn btn-default"><i class="fa fa-facebook"></i>visit my facebook page</a>
+        <a href="" class="btn btn-default"><i class="fa fa-linkedin"></i>visit my linkedin profile</a>
+        <a href="" class="btn btn-default"><i class="fa fa-github"></i>visit my github profile</a>
+        <a href="" class="btn btn-default"><i class="fa fa-youtube"></i>visit my youtube channel</a>
+        <a href="" class="btn btn-default"><i class="fa fa-stack-overflow"></i>visit my stackoverflow profile</a>
+        <a href="" class="btn btn-default"><i class="fa fa-twitter"></i>visit my twitter profile</a>
+        <a href="" class="btn btn-default"><i class="fa fa-codepen"></i>visit my codepen profile</a>
+        <a href="" class="btn btn-default"><i class="fa fa-google"></i>visit my google page</a>
+
+
+
+       
+
+    </div>
+
+</div>

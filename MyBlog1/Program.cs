@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MyBlog1.Data;
-using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MyBlog1
 {
@@ -27,7 +32,6 @@ namespace MyBlog1
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
-
             host.Run();
         }
 

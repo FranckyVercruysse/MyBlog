@@ -1,0 +1,24 @@
+﻿I want a blog to show my knowledge to my clients and employers. In this
+multi-part series, we are going to learn ASP.NET Core 2.0 step by step by
+creating this blog from scratch.
+You can edit the .csproj file by right-clicking the project name in Solution Explorer and selecting Edit MyBlog.csproj
+<pre class="brush:xml;highlight:[11,12,13]">
+&lt;Project Sdk="Microsoft.NET.Sdk.Web">
+
+  &lt;PropertyGroup>
+    &lt;TargetFramework>netcoreapp2.0&lt;/TargetFramework>
+  &lt;/PropertyGroup>
+
+  &lt;ItemGroup>
+    &lt;PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+  &lt;/ItemGroup>
+
+  &lt;ItemGroup>
+    &lt;DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    &lt;DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  &lt;/ItemGroup>
+
+&lt;/Project>
+</pre>
+<br />
+<h5>Create an initial migration</h5>

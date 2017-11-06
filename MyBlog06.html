@@ -1,0 +1,297 @@
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"
+      asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+      asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" />
+
+<link href="MyBlog/wwwroot/css/site.css" rel="stylesheet" />
+
+
+<h5>Search posts</h5>
+<br />
+We are going to implement the search functionality for our blog.
+<br />
+
+The following are the tasks we are going to execute as part of this story.
+<ol>
+    <li>Create necessary repository methods</li>
+    <li>Create search action</li>
+    <li>Create the html form to display the search textbox.</li>
+</ol>
+<br /><br />
+<h5>Create necessary repository methods</h5>
+<br />
+We have to create two methods, one method to fetch the posts that matches the search text
+and the other one is to display the total number of posts matches the search text for pagination.
+<br />
+<pre class="brush:csharp;">
+   ...
+public interface IBlogRepository
+{
+    ...
+    IList&lt;Post> PostsForSearch(string search, int pageNo, int pageSize);
+    int TotalPostsForSearch(string search);
+}
+    ...    
+</pre>
+<br />
+Here is the implementation of both the methods.
+<br />
+<pre class="brush:csharp;">
+   ...
+
+namespace MyBlog.Repositories
+{
+    public class BlogRepository : IBlogRepository
+    {
+        private BloggingContext _context;
+        public BlogRepository(BloggingContext context)
+        {
+            _context = context;
+        }
+
+        ...
+
+        public IList&lt;Post> PostsForSearch(string search, int pageNo, int pageSize)
+        {
+            var posts = _context.Posts
+                        .Where(p => p.Published && (p.Title.Contains(search) || p.Category.Name.Equals(search) || p.PostTags.Any(t => t.Tag.Name.Equals(search))))
+                        .OrderByDescending(p => p.PostedOn)
+                        .Skip(pageNo * pageSize)
+                        .Take(pageSize)
+                        .Include(s => s.PostTags)
+                            .ThenInclude(e => e.Tag)
+                        .Include(c => c.Category)
+                        .AsNoTracking()
+                        .ToList();
+            return posts;
+        }
+
+       
+        public int TotalPostsForSearch(string search)
+        {
+            return _context.Posts
+                .Where(p => p.Published && (p.Title.Contains(search) || p.Category.Name.Equals(search) || p.PostTags.Any(t => t.Tag.Name.Equals(search))))
+                .Count();
+        }
+    }
+}
+
+</pre>
+
+If you see the implementation of PostsForSearch method, we are searching the posts that matches the text either 
+in title, category or tags.
+<br /><br />
+
+<h5>Create search action</h5>
+<br />
+We need an action that displays the posts matches the search text and it's pretty much the same as the Category 
+and Tag actions.
+<br />
+<pre class="brush:csharp;">
+   ...
+
+    public ViewResult Search(string s, int p = 1)
+    {
+        ViewBag.Title = $@"Lists of posts found for search text ""{s}""";
+
+        var viewModel = new ListViewModel(_blogRepository, s, "Search", p);
+        return View("List", viewModel);
+    }
+   ...    
+</pre>
+<br /><br />
+Let's update the ListViewModel.<br />
+<pre class="brush:csharp;highlight:[32,33,34,43]">
+ ...
+
+namespace MyBlog.Models.View_Models
+{
+    public class ListViewModel
+    {
+        const int postsPerPage = 3;
+
+        public ListViewModel(IBlogRepository _blogRepository, int p)
+        {
+            // pick latest 3 (postsPerPage) posts
+            Posts = _blogRepository.Posts(p - 1, postsPerPage);
+            TotalPosts = _blogRepository.TotalPosts();
+        }
+
+        public ListViewModel(IBlogRepository blogRepository,
+         string text, string type, int p)
+        {
+            switch (type)
+            {
+                case "Category":
+                    Posts = blogRepository.PostsForCategory(text, p - 1, postsPerPage);
+                    TotalPosts = blogRepository.TotalPostsForCategory(text);
+                    Category = blogRepository.Category(text);
+                    break;
+                case "Tag":
+                    Posts = blogRepository.PostsForTag(text, p - 1, postsPerPage);
+                    TotalPosts = blogRepository.TotalPostsForTag(text);
+                    Tag = blogRepository.Tag(text);
+                    break;
+                default:
+                    Posts = blogRepository.PostsForSearch(text, p - 1, postsPerPage);
+                    TotalPosts = blogRepository.TotalPostsForSearch(text);
+                    Search = text;
+                    break;
+            }
+        }
+
+        public IList&lt;Post> Posts { get; private set; }
+        public int TotalPosts { get; private set; }
+        public Category Category { get; private set; }
+        public Tag Tag { get; private set; }
+        public string Search { get; private set; }
+    }
+}
+   
+</pre>
+
+<br /><br />
+We have added a new property Search in the ListViewModel to store the search text and display it in the view.
+<br /><br />
+<h5>Create the html form to display the search textbox</h5>
+<br />
+
+We have to create a html form and that can be easily accomplished by
+the <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms" target="_blank">Form Tag Helper</a>.
+<br />
+In _Layout.cshtml :<br />
+<pre class="brush:xml;highlight:[24,25,26,27,28,29]">
+    ...
+        
+&lt;body>
+    &lt;header>
+        &lt;div class="container">
+            &lt;nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+                &lt;button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                &lt;span class="navbar-toggler-icon">&lt;/span>
+                                &lt;/button>
+                &lt;a class="navbar-brand" href="#">My Blog&lt;/a>
+
+                &lt;div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    &lt;ul class="navbar-nav mr-auto">
+                        &lt;li class="nav-item active">
+                            &lt;a class="nav-link" asp-controller="Blog" asp-action="Posts">Posts &lt;span class="sr-only">(current)&lt;/span>&lt;/a>
+                        &lt;/li>
+                        &lt;li class="nav-item">
+                            &lt;a class="nav-link" href="#">Contact&lt;/a>
+                        &lt;/li>
+                        &lt;li class="nav-item">
+                            &lt;a class="nav-link" href="#">About&lt;/a>
+                        &lt;/li>
+                    &lt;/ul>
+                    &lt;form asp-controller="Blog" asp-action="Search" method="get" id="search-form" class="form-inline my-2 my-lg-0" role="search">
+                        &lt;div class="form-group">
+                            &lt;input type="text" class="form-control mr-sm-2" id="s" name="s" placeholder="Search">
+                        &lt;/div>
+                        &lt;button type="submit" class="btn btn-outline-success my-2 my-sm-0">Submit&lt;/button>
+                    &lt;/form>
+                &lt;/div>
+            &lt;/nav>
+        &lt;/div>
+    &lt;/header>
+    
+        ...
+</pre>
+<br /><br />
+
+
+
+
+We don't want the form getting submitted on clicking the Search button without entering any text in the search-box
+and we can achieve that through a simple script. <br />
+
+Replace the contents of wwwroot/js/site.js as below.
+<br />
+<pre class="brush:javascript;">
+$(function () {
+    $('#search-form').submit(function () {
+        if ($("#s").val().trim())
+            return true;
+        return false;
+    });
+});
+    
+</pre>
+<br />
+
+All we have to do in the script file is listen to the submit event of the form and stop the event if there is no any text
+in the search-box.
+<br />
+Don't forget to include the script file site.js in the _Layout.cshtml page.
+<br />
+<pre class="brush:xml;highlight:[8,24]">
+        ...
+
+        &lt;!-- jQuery first, then Tether, then Bootstrap JS. -->
+    &lt;environment include="Development">
+        &lt;script src="~/lib/jquery/dist/jquery.js">&lt;/script>
+        &lt;script src="~/lib/tether/dist/js/tether.js">&lt;/script>
+        &lt;script src="~/lib/bootstrap/dist/js/bootstrap.js">&lt;/script>
+        &lt;script src="~/js/site.js" asp-append-version="true">&lt;/script>
+    &lt;/environment>
+    &lt;environment exclude="Development">
+        &lt;script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+                crossorigin="anonymous">&lt;/script>
+        &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+                integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+                crossorigin="anonymous">&lt;/script>
+        &lt;script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+                crossorigin="anonymous">&lt;/script>
+        &lt;script src="~/js/site.min.js" asp-append-version="true">&lt;/script>
+    &lt;/environment>
+
+    @RenderSection("Scripts", required: false)
+&lt;/body>
+&lt;/html>
+
+    
+</pre>
+
+
+<br /><br />
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+
+    <script language='javascript' type='text/javascript'>
+        SyntaxHighlighter.config.bloggerMode = true;
+        SyntaxHighlighter.all();
+    </script>
+
+
+

@@ -1,0 +1,16 @@
+﻿@model MyBlog.Models.View_Models.WidgetViewModel
+
+<div id="sidebars">
+    <!-- Subscribe to my feed widget -->
+    <div class="card card-outline-secondary text-center" style="background-color: #eceeef;">
+        <div class="card-body">
+            <p class="card-text">
+                Don't want to miss updates? Please click the below button!
+            </p>
+            <a href="#" class="btn btn-primary btn-lg" role="button">Subscribe to my feed</a>
+        </div>
+    </div>
+    @Html.Partial("_Categories", Model.Categories)
+    @Html.Partial("_Tags", Model.Tags)
+    @Html.Partial("_LatestPosts", Model.LatestPosts)
+</div>

@@ -1,13 +1,9 @@
 ﻿@model MyBlog.Models.View_Models.ListViewModel
 
-@{
-    ViewData["Title"] = "List";
-}
-
 <div id="content">
     <div class="row">
-        <div class="col-md-8">
-            <h1>Latest Posts</h1>
+        <div class="col-lg-8">
+            <h1>@ViewBag.Title</h1>
 
             @Html.Partial("_Pager", Model)
 
@@ -27,9 +23,9 @@
         </div>
 
 
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <!-- Sidebar -->
-            @Html.Partial("_Sidebar")
+            @await Component.InvokeAsync("Sidebar")
         </div>
     </div>
 </div>

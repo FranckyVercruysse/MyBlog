@@ -1,0 +1,347 @@
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"
+      asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+      asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" />
+
+<link href="MyBlog/wwwroot/css/site.css" rel="stylesheet" />
+
+
+
+
+<h5>Display posts based on category</h5>
+<br />
+Each post belongs to a category and we are going to display the posts based on category.
+<br />
+We have to complete the following tasks.
+<ol>
+    <li>Create repository methods to fetch posts, total posts and category based on slug</li>
+    <li>Create an action that return posts belongs to a category </li>
+    <li>Define a new route in startup.cs</li>
+</ol>
+<br />
+
+<h5>Create repository methods to fetch posts, total posts and category based on slug</h5>
+<br />
+Let's define three new methods in the IBlogRepository interface.<br />
+
+<pre class="brush:csharp;">
+
+namespace MyBlog.Repositories
+{
+    public interface IBlogRepository
+    {
+        ...
+
+        IList&lt;Post> PostsForCategory(string categorySlug, int pageNo, int pageSize);
+        int TotalPostsForCategory(string categorySlug);
+        Category Category(string categorySlug);
+    }
+}
+
+</pre>
+<br />
+PostsForCategory method returns the latest posts belongs to a category based on the slug (UrlSlug) and pagination values.
+The TotalPostsForCategory method returns the total no. of posts belongs to the category.
+The Category method returns the category instance.
+<br />
+Here is the implementation of the methods.
+<br /><br />
+<pre class="brush:csharp;">
+...
+namespace MyBlog.Repositories
+{
+    public class BlogRepository : IBlogRepository
+    {
+        private BloggingContext _context;
+        public BlogRepository(BloggingContext context)
+        {
+            _context = context;
+        }
+        
+        ...
+
+        public IList&lt;Post> PostsForCategory(string categorySlug, int pageNo, int pageSize)
+        {
+            var posts = _context.Posts
+                        .Where(p => p.Published & p.Category.UrlSlug.Equals(categorySlug))
+                        .OrderByDescending(p => p.PostedOn)
+                        .Skip(pageNo * pageSize)
+                        .Take(pageSize)
+                        .Include(s => s.PostTags)
+                            .ThenInclude(e => e.Tag)
+                        .Include(c => c.Category)
+                        .AsNoTracking()
+                        .ToList();
+            return posts;
+        }
+
+        public int TotalPostsForCategory(string categorySlug)
+        {
+            return _context.Posts
+                .Where(p => p.Published && p.Category.UrlSlug.Equals(categorySlug))
+                .Count();
+        }
+
+        public Category Category(string categorySlug)
+        {
+            return _context.Categories
+                    .FirstOrDefault(c => c.UrlSlug.Equals(categorySlug));
+        }
+    }
+}
+</pre>
+
+<br /><br />
+<h5>Create an action to return posts belongs a particular category</h5>
+
+<br />
+
+We need a new action in our BlogController to diplay the posts based on category. <br />
+Create a new action with the name Category that takes both the slug parameter and pagination values.
+<br />
+<pre class="brush:csharp;">
+
+
+
+        public ViewResult Category(string category, int p = 1)
+        {
+            // TODO: get the posts for the category and return the view.
+        }
+</pre>
+<br /><br />
+We can use the same ListViewModel by adding an overloaded constructor that takes category slug as a parameter. <br />
+Here is the modified ListViewModel. We also added a new property called Category to store the object.
+<br /><br />
+<pre class="brush:csharp;highlight:[14,15,16,17,18,19,23]">
+namespace MyBlog.Models.View_Models
+{
+    public class ListViewModel
+    {
+        const int postsPerPage = 3;
+
+        public ListViewModel(IBlogRepository _blogRepository, int p)
+        {
+            // pick latest 3 (postsPerPage) posts
+            Posts = _blogRepository.Posts(p - 1, postsPerPage);
+            TotalPosts = _blogRepository.TotalPosts();
+        }
+
+        public ListViewModel(IBlogRepository blogRepository, string categorySlug, int p)
+        {
+            Posts = blogRepository.PostsForCategory(categorySlug, p - 1, postsPerPage);
+            TotalPosts = blogRepository.TotalPostsForCategory(categorySlug);
+            Category = blogRepository.Category(categorySlug);
+        }
+
+        public IList<Post> Posts { get; private set; }
+        public int TotalPosts { get; private set; }
+        public Category Category { get; private set; }
+    }
+}
+
+</pre>
+<br /><br />
+Our viewmodel is ready, let's complete the pending work in the action.
+
+<pre class="brush:csharp;highlight:[16,17,18,19,20,21,22,23,24,25]">
+...
+
+namespace MyBlog.Controllers
+{
+    public class BlogController : Controller
+    {
+        private readonly IBlogRepository _blogRepository;
+
+        public BlogController(IBlogRepository blogRepository)
+        {
+            _blogRepository = blogRepository;
+        }
+
+       ...
+
+        public ViewResult Category(string category, int p = 1)
+        {
+            var viewModel = new ListViewModel(_blogRepository, category, p);
+
+            if (viewModel.Category == null)
+                throw new Exception("Category not found"); 
+
+            ViewBag.Title = $@"Latest posts on category ""{viewModel.Category.Name}""";
+            return View("List", viewModel);
+        }
+    }
+}
+
+</pre>
+<br /><br />
+<h5>Define a new route in Startup.cs file</h5>
+<br />
+We need to map requests like http://localhost/category/programming, http://localhost/category/unittesting
+to Category action.
+The default route we have currently not supports this rule.
+Let's define a new route above the default one that maps these requests to the Category action.
+<br />
+<pre class="brush:csharp;highlight:[16,17,18,19,20]">
+...
+
+namespace MyBlog
+{
+    public class Startup
+    {
+        ...
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            ...
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    "Category",
+                    "Category/{category}",
+                    new { controller = "Blog", action = "Category" }
+                    );
+
+                routes.MapRoute(
+                    name: "default",<
+                    template: "{controller=Blog}/{action=Posts}/{id?}"
+                    );
+
+            });
+        }
+    }
+}
+
+</pre>
+
+<div class="rcorners">
+    <b>Route Order</b>
+    The route that defined at first has the highest priority.
+    If the incoming request not matches the first route then it is matched with the second,
+    third and so on until it matches any of the defined route.
+    If none of the route matches then 404 error will be returned.
+</div>
+<br />
+<h5>Fixing anchor links</h5>
+<br />
+_PostTemplate.cshtml :
+
+<pre class="brush:xml;highlight:[9,10,11,12,13,14]">
+
+@model MyBlog.Models.Post
+
+&lt;article>
+    &lt;h2>@Model.Title&lt;/h2>
+
+    &lt;div class="row">
+        &lt;div class="col-sm-6 col-md-6">
+            &lt;i class="fa fa-folder-open" aria-hidden="true">&lt;/i>
+            &lt;a asp-controller="Blog"
+               asp-action="Category"
+               asp-route-category="@Model.Category.UrlSlug"
+               title="@Model.Category.Name">
+                    @Model.Category.Name
+            &lt;/a>
+                &lt;!--tag list -->
+            &lt;i class="fa fa-tag" aria-hidden="true">&lt;/i>
+            &lt;a href="#">tag 1&lt;/a>&lt;a href="#">tag 2&lt;/a>&lt;a href="#">tag 3&lt;/a>
+        &lt;/div>
+        &lt;div class="col-sm-6 col-md-6">
+            &lt;i class="fa fa-comment-o" aria-hidden="true">&lt;/i>&lt;a href="#">20 Comments&lt;/a>
+            &lt;i class="fa fa-clock-o" aria-hidden="true">&lt;/i>@Model.PostedOn.ToString("dd/M/yyyy")
+        &lt;/div>
+    &lt;/div>
+
+    &lt;!--Short Description-->
+    &lt;div class="post-body">
+        @Html.Raw(Model.ShortDescription)
+    &lt;/div>
+
+        
+    &lt;p class="text-right">
+        &lt;a href="#">
+            continue reading...
+        &lt;/a>
+    &lt;/p>
+    &lt;hr>
+
+&lt;/article>
+
+</pre>
+
+<br />
+<h5>Title of the content</h5>
+<br />
+Replace text 'Latest Posts' of the h1 element of List.cshtml with @ViewBag.Title.
+<br />
+List.cshtml :
+<br />
+<pre class="brush:xml;highlight:[6]">
+
+@model MyBlog.Models.View_Models.ListViewModel
+    
+&lt;div id="content">
+    &lt;div class="row">
+        &lt;div class="col-md-8">
+            &lt;h1>@ViewBag.Title&lt;/h1>
+
+            @Html.Partial("_Pager", Model)
+
+            @if (Model.Posts.Count > 0)
+            {
+                foreach (var post in Model.Posts)
+                {
+                @Html.Partial("_PostTemplate", post)
+                }
+            }
+            else
+            {
+                &lt;p>No posts found&lt;/p>
+            }
+            @Html.Partial("_Pager", Model)
+        &lt;/div>
+
+        &lt;div class="col-md-4">
+                &lt;!-- Sidebar -->
+            @Html.Partial("_Sidebar")
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+</pre>
+
+
+<br />
+Now we can browse posts based on category. Next we will see how to display posts labelled for a tag.
+<br /><br />
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+        asp-fallback-test="window.jQuery"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+
+<script language='javascript' type='text/javascript'>
+    SyntaxHighlighter.config.bloggerMode = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+

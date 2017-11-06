@@ -1,0 +1,271 @@
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"
+      asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+      asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" />
+
+<link href="MyBlog/wwwroot/css/site.css" rel="stylesheet" />
+
+
+<h5>Display the post tags in a widget</h5>
+<br />
+This section is quite same as the previous one.
+<br />
+<ul>
+    <li>Create a repository method that returns all the tags</li>
+    <li>Update the WidgetViewModel</li>
+    <li>Create a partial view to display the tags</li>
+</ul>
+<br />
+<h5>Create a repository method that returns all the tags</h5>
+<br />
+in  IBlogRepository.cs,
+
+<pre class="brush:csharp;">
+namespace MyBlog.Repositories
+{
+    public interface IBlogRepository
+    {
+        ...
+
+        IList&lt;Tag> Tags();
+    }
+}
+
+</pre>
+<br />
+The implementation in BlogRepository,
+<br /><br />
+<pre class="brush:csharp;">
+
+namespace MyBlog.Repositories
+{
+    public class BlogRepository : IBlogRepository
+    {
+        private BloggingContext _context;
+        public BlogRepository(BloggingContext context)
+        {
+            _context = context;
+        }
+
+        ...
+
+        public IList&lt;Tag> Tags()
+        {
+            return _context.Tags.OrderBy(p => p.Name).ToList();
+        }
+    }
+}
+</pre>
+<br /><br />
+<h5>Update the WidgetViewModel</h5>
+<br />
+Add a new property Tags to the WidgetViewModel to store the collection of tags.
+<br /><br />
+<pre class="brush:csharp;">
+namespace MyBlog.Models.View_Models
+{
+    public class WidgetViewModel
+    {
+        public WidgetViewModel(IBlogRepository blogRepository)
+        {
+            Categories = blogRepository.Categories();
+            Tags = blogRepository.Tags();
+        }
+
+        public IList&lt;Category> Categories { get; private set; }
+        public IList&lt;Tag> Tags { get; private set; }
+    }
+}
+
+</pre>
+<br /><br />
+<h5>Create a partial view to display the tags</h5>
+<br />
+In the Shared folder create a partial view _Tags.cshtml that is strongly-typed with IList&lt;Tag>.
+Again, we are going to use the card component.
+The Tags widget looks like Categorie widget but the only difference is, the links are inline instead of block.
+To achieve this, we've to replace the list-group class with list-inline.
+<br /><br />
+<pre class="brush:xml;">
+@model IList&lt;MyBlog.Models.Tag>
+
+&lt;div class="card card-outline-secondary" style="background-color: #eceeef;">
+    &lt;div class="card-block">
+        &lt;h4 class="card-title">Tags&lt;/h4>
+        @if (Model.Count > 0)
+        {
+        &lt;ul class="list-inline">
+            @foreach (var tag in Model)
+            {
+            &lt;li class="list-inline-item">
+                &lt;a asp-controller="Blog"
+                      asp-action="Tag"
+                      asp-route-tag="@tag.UrlSlug"
+                      title="@tag.Name">
+                        @tag.Name
+                &lt;/a>
+            &lt;/li>
+            }
+        &lt;/ul>
+        }
+        else
+        {
+            &lt;p>No tags found!&lt;/p>
+        }
+    &lt;/div>
+&lt;/div>
+
+
+</pre>
+<br />
+We need to update the Default.cshtml to render the tags as shown below.
+<br /><br />
+<pre class="brush:xml;highlight:[12]">
+@model MyBlog.Models.View_Models.WidgetViewModel
+
+&lt;div id="sidebars">
+    &lt;!-- Subscribe to my feed widget -->
+    &lt;div class="card card-outline-secondary text-center" style="background-color: #eceeef;">
+    &lt;div class="card-block">
+    &lt;p class="card-text">Don't want to miss updates? Please click the below button!&lt;/p>
+    &lt;a href="#" class="btn btn-primary btn-lg" role="button">Subscribe to my feed&lt;/a>
+        &lt;/div>
+    &lt;/div>
+    @Html.Partial("_Categories", Model.Categories)
+    @Html.Partial("_Tags", Model.Tags)
+&lt;/div>
+</pre>
+<br />
+<h5>Display the latest posts in a widget</h5>
+<br />
+The Latest posts widget is used to display the list of latest posts.
+It looks similar like other widgets: Categories, Tags.
+Each of them contains a simple heading and body. The body section contains bunch of links.
+
+Again, we are going to use the card component.
+The body contains an unordered list of links to latest posts.
+We already have the repository method that returns the latest posts. 
+Add a new property LatestPosts to the WidgetViewModel to store the result.
+
+<br />
+<pre class="brush:csharp;highlight:[9,14]">
+namespace MyBlog.Models.View_Models
+{
+    public class WidgetViewModel
+    {
+        public WidgetViewModel(IBlogRepository blogRepository)
+        {
+            Categories = blogRepository.Categories();
+            Tags = blogRepository.Tags();
+            LatestPosts = blogRepository.Posts(0, 6);
+        }
+
+        public IList&lt;Category> Categories { get; private set; }
+        public IList&lt;Tag> Tags { get; private set; }
+        public IList&lt;Post> LatestPosts { get; private set; }
+    }
+}
+</pre>
+<br />
+As you can see, we are returning the last six posts.
+<br />
+Create a partial view with name _LatestPosts.cshtml and paste the below contents.
+<br />
+<pre class="brush:xml;">
+@model IList&lt;MyBlog.Models.Post>
+
+&lt;div class="card card-outline-secondary" style="background-color: #eceeef;">
+    &lt;div class="card-block">
+        &lt;h4 class="card-title">Latest Posts&lt;/h4>
+        @if (Model.Count > 0)
+        {
+        &lt;ul class="list-group list-group-flush">
+        @foreach (var post in Model)
+        {
+            &lt;li class="list-group-item">
+                &lt;a asp-controller="Blog"
+                      asp-action="Post"   
+                      asp-route-year="@post.PostedOn.Year"
+                      asp-route-month="@post.PostedOn.Month"
+                      asp-route-title="@post.UrlSlug"
+                      title="@post.Title">
+                                @post.Title
+                &lt;/a>
+            &lt;/li>
+        }
+        &lt;/ul>
+        }
+        else
+        {
+            &lt;p>No posts found!&lt;/p>
+        }
+    &lt;/div>
+&lt;/div>
+
+</pre>
+<br />
+We need to update the Default.cshtml to render the latest posts as shown below.
+<br />
+<pre class="brush:xml;highlight:[13]">
+@model MyBlog.Models.View_Models.WidgetViewModel
+
+&lt;div id="sidebars">
+    &lt;!-- Subscribe to my feed widget -->
+    &lt;div class="card card-outline-secondary text-center" style="background-color: #eceeef;">
+    &lt;div class="card-block">
+    &lt;p class="card-text">Don't want to miss updates? Please click the below button!&lt;/p>
+    &lt;a href="#" class="btn btn-primary btn-lg" role="button">Subscribe to my feed&lt;/a>
+        &lt;/div>
+    &lt;/div>
+    @Html.Partial("_Categories", Model.Categories)
+    @Html.Partial("_Tags", Model.Tags)
+    @Html.Partial("_LatestPosts", Model.LatestPosts)
+&lt;/div>
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+
+    <script language='javascript' type='text/javascript'>
+        SyntaxHighlighter.config.bloggerMode = true;
+        SyntaxHighlighter.all();
+    </script>
+
+
+

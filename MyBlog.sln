@@ -1,21 +1,41 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog1", "MyBlog1\MyBlog1.csproj", "{F4748CD7-4422-44CE-BB8F-771D52E2211D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F90C2C8-9D70-4BA8-9177-40112C163C8A}"
 	ProjectSection(SolutionItems) = preProject
+		DbInitializer.txt = DbInitializer.txt
+		Description.html = Description.html
+		DescriptionShort.html = DescriptionShort.html
 		doc.html = doc.html
+		HTMLPage2.html = HTMLPage2.html
+		HTMLPage3.html = HTMLPage3.html
 		mainContent.html = mainContent.html
-		Myblog1.html = Myblog1.html
+		MyBlog00.html = MyBlog00.html
+		Myblog01.html = Myblog01.html
+		MyBlog02.html = MyBlog02.html
+		MyBlog03.html = MyBlog03.html
+		MyBlog04.html = MyBlog04.html
+		MyBlog05.html = MyBlog05.html
+		MyBlog06.html = MyBlog06.html
+		MyBlog07.html = MyBlog07.html
+		MyBlog08.html = MyBlog08.html
+		MyBlog09.html = MyBlog09.html
+		MyBlog1.html = MyBlog1.html
+		MyBlog10.html = MyBlog10.html
 		MyBlog2.html = MyBlog2.html
+		MyBlog20.html = MyBlog20.html
+		MyBlog21.html = MyBlog21.html
 		site_css.html = site_css.html
 		SyntaxHighlighter.html = SyntaxHighlighter.html
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlog", "MyBlog\MyBlog.csproj", "{23C7C78F-FCBA-4322-9610-7E66E06C23FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog", "MyBlog\MyBlog.csproj", "{23C7C78F-FCBA-4322-9610-7E66E06C23FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog1", "MyBlog1\MyBlog1.csproj", "{DB2FC71D-3921-417E-9F83-965D82765347}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleLeesHtmlFile", "ConsoleLeesHtmlFile\ConsoleLeesHtmlFile.csproj", "{FA72D60B-450D-4A86-B4B8-E34CB090F19B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +43,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F4748CD7-4422-44CE-BB8F-771D52E2211D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4748CD7-4422-44CE-BB8F-771D52E2211D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4748CD7-4422-44CE-BB8F-771D52E2211D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4748CD7-4422-44CE-BB8F-771D52E2211D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{23C7C78F-FCBA-4322-9610-7E66E06C23FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{23C7C78F-FCBA-4322-9610-7E66E06C23FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23C7C78F-FCBA-4322-9610-7E66E06C23FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23C7C78F-FCBA-4322-9610-7E66E06C23FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB2FC71D-3921-417E-9F83-965D82765347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB2FC71D-3921-417E-9F83-965D82765347}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB2FC71D-3921-417E-9F83-965D82765347}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB2FC71D-3921-417E-9F83-965D82765347}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA72D60B-450D-4A86-B4B8-E34CB090F19B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA72D60B-450D-4A86-B4B8-E34CB090F19B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA72D60B-450D-4A86-B4B8-E34CB090F19B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA72D60B-450D-4A86-B4B8-E34CB090F19B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

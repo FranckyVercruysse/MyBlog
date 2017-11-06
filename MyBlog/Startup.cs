@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyBlog.Data;
-using Microsoft.EntityFrameworkCore;
 using MyBlog.Repositories;
 
 namespace MyBlog
@@ -47,8 +43,27 @@ namespace MyBlog
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "Tag",
+                    template: "Tag/{tag}",
+                    defaults: new { controller = "Blog", action = "Tag" }
+                    );
+
+                routes.MapRoute(
+                    "Category",
+                    "Category/{category}",
+                    new { controller = "Blog", action = "Category" }
+                    );
+                routes.MapRoute(
+                    name: "Post",
+                    template: "Archive/{year}/{month}/{title}",
+                    defaults: new { controller = "Blog", action = "Post" }
+                   );
+
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Blog}/{action=Posts}/{id?}"
+                    );
+
             });
         }
     }
