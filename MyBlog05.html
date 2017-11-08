@@ -7,7 +7,7 @@
 <link href="MyBlog/wwwroot/css/site.css" rel="stylesheet" />
 
 
-<h5>Display posts based on tag</h5>
+<h3 style="display:none;">Display posts based on tag</h3>
 <br />
 
 The following are the tasks we are going to do.
@@ -19,10 +19,8 @@ The following are the tasks we are going to do.
 </ol>
 <br />
 
-<h5>Create repository methods to fetch posts, total posts and tag based on slug</h5>
-<br />
+<h3 class="mb-3">Create repository methods to fetch posts, total posts and tag based on slug</h3>
 We have to define three new methods in IBlogRepository.
-<br />
 <pre class="brush:csharp;highlight:[7,8,9]">
 
 namespace MyBlog.Repositories
@@ -89,8 +87,9 @@ namespace MyBlog.Repositories
 <br /><br />
 
 
-<h5>Create an action to return posts for a particular tag</h5>
-<br />
+<h3 class="mb-3">
+    Create an action to return posts for a particular tag
+</h3>
 We have to create a new action Tag to display posts labelled for a tag.
 <br />
 
@@ -205,8 +204,9 @@ Since we have changed the constructor of the ListViewModel, we need to update th
 </pre>
 <br /><br />
 
-<h5>Define a new route in Startup.cs file</h5>
-<br />
+<h3 class="mb-3">
+    Define a new route in Startup.cs file
+</h3>
 We need to add another route to direct requests to Tag action.
 <pre class="brush:csharp;">
    ...
@@ -249,10 +249,9 @@ namespace MyBlog
     ...    
 </pre>
 <br />
-<h5>Create the anchor tag list from the Tags.</h5>
-<br />
-
-
+<h3 class="mb-3">
+    Create the anchor tag list from the Tags.
+</h3>
 We are going to replace the hard-coded anchor tags in _PostTemplate.cshtml.
 <br />
 <pre class="brush:xml">
@@ -264,7 +263,7 @@ We are going to replace the hard-coded anchor tags in _PostTemplate.cshtml.
 </pre>
 
 
-For the anchor tag list we will use 
+For the anchor tag list we will use
 <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/intro" target="_blank">Tag Helpers</a>.
 <blockquote class="blockquote rcorners">
     Tag Helpers enable server-side code to participate in creating and rendering HTML elements in Razor files.<br />
@@ -310,12 +309,12 @@ namespace MyBlog.TagHelpers
 <br />
 <ul>
     <li>
-        Tag helpers use a naming convention that targets elements of the root class name 
+        Tag helpers use a naming convention that targets elements of the root class name
         (minus the TagHelper portion of the class name). <br />
-        Here, the root name of TagListTagHelper is taglist, so the <code>&lt;tag-list></code> tag will be targeted. 
+        Here, the root name of TagListTagHelper is taglist, so the <code>&lt;tag-list></code> tag will be targeted.
     </li>
     <li>
-        The TagListTagHelper class derives from TagHelper. 
+        The TagListTagHelper class derives from TagHelper.
         The TagHelper class provides methods and properties for writing Tag Helpers.
     </li>
     <li>
@@ -325,15 +324,15 @@ namespace MyBlog.TagHelpers
         The context parameter to Process contains information associated with the execution of the current HTML tag.
     </li>
     <li>
-        The output parameter to Process contains a stateful HTML element representative of the original source 
+        The output parameter to Process contains a stateful HTML element representative of the original source
         to generate an HTML tag and content.
     </li>
-    
-    
+
+
 </ul>
 
 <br />
-To make the TagListTagHelper class available to all our Razor views, 
+To make the TagListTagHelper class available to all our Razor views,
 add the addTagHelper directive to the Views/_ViewImports.cshtml file:
 
 
@@ -346,15 +345,15 @@ add the addTagHelper directive to the Views/_ViewImports.cshtml file:
 </pre>
 <br />
 The code above uses the wildcard syntax to specify all the tag helpers in our assembly will be available. <br />
-The first string after @addTagHelper specifies the tag helper to load 
-(Use "*" for all tag helpers), 
-and the second string "MyBlog" specifies the assembly the tag helper is in. 
+The first string after @addTagHelper specifies the tag helper to load
+(Use "*" for all tag helpers),
+and the second string "MyBlog" specifies the assembly the tag helper is in.
 <br />
-Also, note that the third line brings in the 
+Also, note that the third line brings in the
 <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/tag-helpers/intro" target="_blank">
     ASP.NET Core MVC tag helpers
 </a>
- using the wildcard syntax. 
+ using the wildcard syntax.
 <br />
 It's the @addTagHelper directive that makes the tag helper available to the Razor view. <br /><br />
 Alternatively, you can provide the fully qualified name (FQN) of a tag helper as shown below:
@@ -370,7 +369,7 @@ Alternatively, you can provide the fully qualified name (FQN) of a tag helper as
 <br />
 In the _PostTemplate.cshtml replace the hard-code anchor tags with :
 <br />
-<pre class="brush:csharp;"  >
+<pre class="brush:csharp;">
     &lt;tag-list class="post_tags" post-tags="@Model.PostTags">&lt;/tag-list>
 </pre>
 <br />
@@ -402,33 +401,47 @@ This Tag Helper will generate the following HTML :
 Now we can browse posts based on tag as well. Next we will see how to search posts.
 <br /><br />
 
+<p style="text-align: center;">
 
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Display_posts_based_on_category?day=4" title="Previous post">
+        Previous post
+    </a>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-            asp-fallback-test="window.jQuery"
-            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-            crossorigin="anonymous"></script>
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/implementing_search_in_website?day=6" title="Next post">
+        Next post
+    </a>
+    <a class="btn btn-outline-danger pull-right" target="_blank" href="https://github.com/FranckyVercruysse/MyBlog.git" title="Fork in Github">
+        Fork in Git
+    </a>
+</p>
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+        asp-fallback-test="window.jQuery"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
 
-    <script language='javascript' type='text/javascript'>
-        SyntaxHighlighter.config.bloggerMode = true;
-        SyntaxHighlighter.all();
-    </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+
+<script language='javascript' type='text/javascript'>
+    SyntaxHighlighter.config.bloggerMode = true;
+    SyntaxHighlighter.all();
+</script>
 
 
 

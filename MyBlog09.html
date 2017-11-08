@@ -7,18 +7,19 @@
 <link href="MyBlog/wwwroot/css/site.css" rel="stylesheet" />
 
 
-<h5>Display the post tags in a widget</h5>
-<br />
+<h3 style="display:none;" class="mb-3">Display the post tags in a widget</h3>
 This section is quite same as the previous one.
 <br />
+The following are the tasks we have to execute.<br />
 <ul>
     <li>Create a repository method that returns all the tags</li>
     <li>Update the WidgetViewModel</li>
     <li>Create a partial view to display the tags</li>
 </ul>
 <br />
-<h5>Create a repository method that returns all the tags</h5>
-<br />
+<h3 class="mb-3">
+    Create a repository method that returns all the tags
+</h3>
 in  IBlogRepository.cs,
 
 <pre class="brush:csharp;">
@@ -58,8 +59,9 @@ namespace MyBlog.Repositories
 }
 </pre>
 <br /><br />
-<h5>Update the WidgetViewModel</h5>
-<br />
+<h3 class="mb-3">
+    Update the WidgetViewModel
+</h3>
 Add a new property Tags to the WidgetViewModel to store the collection of tags.
 <br /><br />
 <pre class="brush:csharp;">
@@ -80,8 +82,9 @@ namespace MyBlog.Models.View_Models
 
 </pre>
 <br /><br />
-<h5>Create a partial view to display the tags</h5>
-<br />
+<h3 class="mb-3">
+    Create a partial view to display the tags
+</h3>
 In the Shared folder create a partial view _Tags.cshtml that is strongly-typed with IList&lt;Tag>.
 Again, we are going to use the card component.
 The Tags widget looks like Categorie widget but the only difference is, the links are inline instead of block.
@@ -137,15 +140,16 @@ We need to update the Default.cshtml to render the tags as shown below.
 &lt;/div>
 </pre>
 <br />
-<h5>Display the latest posts in a widget</h5>
-<br />
+<h3 class="mb-3">
+    Display the latest posts in a widget
+</h3>
 The Latest posts widget is used to display the list of latest posts.
 It looks similar like other widgets: Categories, Tags.
 Each of them contains a simple heading and body. The body section contains bunch of links.
 
 Again, we are going to use the card component.
 The body contains an unordered list of links to latest posts.
-We already have the repository method that returns the latest posts. 
+We already have the repository method that returns the latest posts.
 Add a new property LatestPosts to the WidgetViewModel to store the result.
 
 <br />
@@ -228,44 +232,47 @@ We need to update the Default.cshtml to render the latest posts as shown below.
 
 
 
+<p style="text-align: center;">
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Create_sidebar_widgets?day=8" title="Previous post">
+        Previous post
+    </a>
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Enabling%20_EF_Core_migrations?day=20" title="Next post">
+        Next post
+    </a>
+    <a class="btn btn-outline-danger pull-right" target="_blank" href="https://github.com/FranckyVercruysse/MyBlog.git" title="Fork in Github">
+        Fork in Git
+    </a>
+</p>
 
 
 
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+        asp-fallback-test="window.jQuery"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
 
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
 
-
-
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-            asp-fallback-test="window.jQuery"
-            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-            crossorigin="anonymous"></script>
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-
-    <script language='javascript' type='text/javascript'>
-        SyntaxHighlighter.config.bloggerMode = true;
-        SyntaxHighlighter.all();
-    </script>
+<script language='javascript' type='text/javascript'>
+    SyntaxHighlighter.config.bloggerMode = true;
+    SyntaxHighlighter.all();
+</script>
 
 
 

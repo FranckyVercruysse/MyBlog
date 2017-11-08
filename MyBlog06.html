@@ -7,8 +7,9 @@
 <link href="MyBlog/wwwroot/css/site.css" rel="stylesheet" />
 
 
-<h5>Search posts</h5>
-<br />
+<h3 style="display:none;" class="mb-3">
+    Search posts
+</h3>
 We are going to implement the search functionality for our blog.
 <br />
 
@@ -19,8 +20,9 @@ The following are the tasks we are going to execute as part of this story.
     <li>Create the html form to display the search textbox.</li>
 </ol>
 <br /><br />
-<h5>Create necessary repository methods</h5>
-<br />
+<h3 class="mb-3">
+    Create necessary repository methods
+</h3>
 We have to create two methods, one method to fetch the posts that matches the search text
 and the other one is to display the total number of posts matches the search text for pagination.
 <br />
@@ -79,13 +81,14 @@ namespace MyBlog.Repositories
 
 </pre>
 
-If you see the implementation of PostsForSearch method, we are searching the posts that matches the text either 
+If you see the implementation of PostsForSearch method, we are searching the posts that matches the text either
 in title, category or tags.
 <br /><br />
 
-<h5>Create search action</h5>
-<br />
-We need an action that displays the posts matches the search text and it's pretty much the same as the Category 
+<h3 class="mb-3">
+    Create search action
+</h3>
+We need an action that displays the posts matches the search text and it's pretty much the same as the Category
 and Tag actions.
 <br />
 <pre class="brush:csharp;">
@@ -154,8 +157,9 @@ namespace MyBlog.Models.View_Models
 <br /><br />
 We have added a new property Search in the ListViewModel to store the search text and display it in the view.
 <br /><br />
-<h5>Create the html form to display the search textbox</h5>
-<br />
+<h3 class="mb-3">
+    Create the html form to display the search textbox
+</h3>
 
 We have to create a html form and that can be easily accomplished by
 the <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms" target="_blank">Form Tag Helper</a>.
@@ -261,37 +265,50 @@ Don't forget to include the script file site.js in the _Layout.cshtml page.
 
 
 <br /><br />
+<p style="text-align: center;">
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Display_posts_based_on_tag?day=5" title="Previous post">
+        Previous post
+    </a>
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Display_the_details_of_a_single_post?day=7" title="Next post">
+        Next post
+    </a>
+    <a class="btn btn-outline-danger pull-right" target="_blank" href="https://github.com/FranckyVercruysse/MyBlog.git" title="Fork in Github">
+        Fork in Git
+    </a>
+</p>
 
 
 
 
 
 
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-            asp-fallback-test="window.jQuery"
-            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-            crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+        asp-fallback-test="window.jQuery"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
 
-    <script language='javascript' type='text/javascript'>
-        SyntaxHighlighter.config.bloggerMode = true;
-        SyntaxHighlighter.all();
-    </script>
+<script language='javascript' type='text/javascript'>
+    SyntaxHighlighter.config.bloggerMode = true;
+    SyntaxHighlighter.all();
+</script>
 
 
 

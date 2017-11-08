@@ -17,13 +17,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MyBlog03.html = MyBlog03.html
 		MyBlog03Short.html = MyBlog03Short.html
 		MyBlog04.html = MyBlog04.html
+		MyBlog04Short.html = MyBlog04Short.html
 		MyBlog05.html = MyBlog05.html
+		MyBlog05Short.html = MyBlog05Short.html
 		MyBlog06.html = MyBlog06.html
+		MyBlog06Short.html = MyBlog06Short.html
 		MyBlog07.html = MyBlog07.html
+		MyBlog07Short.html = MyBlog07Short.html
 		MyBlog08.html = MyBlog08.html
+		MyBlog08Short.html = MyBlog08Short.html
 		MyBlog09.html = MyBlog09.html
+		MyBlog09Short.html = MyBlog09Short.html
 		MyBlog10.html = MyBlog10.html
 		MyBlog20.html = MyBlog20.html
+		MyBlog20Short.html = MyBlog20Short.html
 		MyBlog21.html = MyBlog21.html
 	EndProjectSection
 EndProject

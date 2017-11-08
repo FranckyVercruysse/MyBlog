@@ -8,7 +8,9 @@
 
 
 
-<h3>Create sidebar widgets</h3>
+<h3 style="display:none;" class="mb-3">
+    Create sidebar widgets
+</h3>
 
     The Sidebar contains stack of widgets like subscribe to my feed, latest posts, categories, tags and recent comments.
     You may even want to add some more. <br />
@@ -26,8 +28,9 @@
 
 
 
-<h5>Display the post categories in a widget</h5>
-<br />
+<h3 class="mb-3">
+    Display the post categories in a widget
+</h3>
 
 The following are the tasks we have to execute.
 
@@ -40,7 +43,9 @@ The following are the tasks we have to execute.
 </ol>
 <br />
 
-<h5>Create a repository method that returns all the categories</h5>
+<h3 class="mb-3">
+    Create a repository method that returns all the categories
+</h3>
 
 Define and implement the method Categories that returns all the categories from database.
 <br />
@@ -88,8 +93,9 @@ namespace MyBlog.Repositories
 
 <br /><br />
 
-<h5>Create a view model</h5>
-<br />
+<h3 class="mb-3">
+    Create a view model
+</h3>
 
 We are going to display the complete sidebar through a single action.<br />
 
@@ -122,27 +128,27 @@ Currently our WidgetViewModel contains only property Categories of type IList&lt
     , soon we are going to add other widgets data as well.<br /><br />
 
 
-    <h5>SidebarViewComponent</h5>
-    <br />
+<h3 class="mb-3">
+    SidebarViewComponent
+</h3>
 
 
 
     We are going to use
-    <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-components" target="_blank">View Components</a>
+<a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-components" target="_blank">View Components</a>
     for the sidebar. View components are similar to partial views, but they are much more powerful.
-    <br />
+<br />
 
     A view component consists of two parts: the class (typically derived from ViewComponent) and the result it returns (typically a view).
-    <br /><br />
+<br /><br />
 
 
 
-    <h5>Add a ViewComponent class</h5>
-    <br />
-    
+<h3 class="mb-3">Add a ViewComponent class</h3>
+
     Create a ViewComponents folder and add the following SidebarViewComponent class:
-    <br />
-    
+<br />
+
 <pre class="brush:csharp;">
 
 using Microsoft.AspNetCore.Mvc;
@@ -172,12 +178,12 @@ namespace MyBlog.ViewComponents
 
 </pre>
 
-    <br /><br />
+<br /><br />
 
 
 
-    <h5>Create the view component Razor view</h5>
-    <br />
+<h3 class="mb-3">Create the view component Razor view</h3>
+<br />
 
     Create the Views/Shared/Components folder. This folder must be named Components.<br />
 
@@ -198,7 +204,7 @@ namespace MyBlog.ViewComponents
 
 </pre>
 
-    <br /><br />
+<br /><br />
 
 
 
@@ -301,8 +307,7 @@ Let's start working on the widget "subscribe to my feed" widget.
 
 <br /><br />
 
-<h5>"Subscribe to my feed" widget</h5>
-<br />
+<h3 class="mb-3">"Subscribe to my feed" widget</h3>
 The subscribe widget should standout and invite users to get subscribed to the blog.
 We could use the <a href="https://v4-alpha.getbootstrap.com/components/jumbotron/" target="_blank">jumotron CSS class</a> but
 we are going to use <a href="https://v4-alpha.getbootstrap.com/components/card/#" target="_blank">cards</a> again.
@@ -326,7 +331,21 @@ in Shared/Components/Sidebar/Default.cshtml ,
 &lt;/div>
 
 </pre>
+<br />
 
+<p style="text-align: center;">
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Display_the_details_of_a_single_post?day=7" title="Previous post">
+        Previous post
+    </a>
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Display_post_tags_in_a_widget?day=9" title="Next post">
+        Next post
+    </a>
+    <a class="btn btn-outline-danger pull-right" target="_blank" href="https://github.com/FranckyVercruysse/MyBlog.git" title="Fork in Github">
+        Fork in Git
+    </a>
+</p>
 
 
 

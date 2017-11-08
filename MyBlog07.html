@@ -6,8 +6,9 @@
 
 <link href="MyBlog/wwwroot/css/site.css" rel="stylesheet" />
 
-<h5>Display the details of a single post</h5>
-<br />
+<h3 style="display:none;" class="mb-3">
+    Display the details of a single post
+</h3>
 The single-post page is similar like the home (latest posts) page,
     we've to copy most of the stuff from there.
     The header, sidebar and footer are going to be same. <br />
@@ -39,8 +40,9 @@ The single-post page is similar like the home (latest posts) page,
 </ol>
 
 <br />
-<h5>Create a repository method to return post based upon year, month and url-slug</h5>
-<br />
+<h3 class="mb-3">
+    Create a repository method to return post based upon year, month and url-slug
+</h3>
 Each post is uniquely identified by the title slug (UrlSlug) along with the year and month the post is published.
 Define a new method in IBlogRepository that returns a post based upon those three parameters.
 
@@ -57,7 +59,9 @@ namespace MyBlog.Repositories
 </pre>
 <br />
 
-<h5>Implement the Post method in BlogRepository.</h5>
+<h3 class="mb-3">
+    Implement the Post method in BlogRepository.
+</h3>
 
     BlogRepository.cs :
 
@@ -91,7 +95,9 @@ namespace MyBlog.Repositories
 </pre>
 
 
-<h5>Create an action to return the post view</h5>
+<h3 class="mb-3">
+    Create an action to return the post view
+</h3>
 
     Create a new action with the name Post that takes year, month and title (UrlSlug).
 
@@ -134,7 +140,9 @@ namespace MyBlog.Controllers
 <br /><br />
 
 
-<h5>Create view</h5>
+<h3 class="mb-3">
+    Create view
+</h3>
 
     We need a separate view for the Post action with the same name.<br />
 
@@ -214,7 +222,9 @@ namespace MyBlog.Controllers
 &lt;/div>
 </pre>
 
-<h5>Define a new route in Startup.cs</h5>
+<h3 class="mb-3">
+    Define a new route in Startup.cs
+</h3>
 
 
     The url for a post looks like http://localhost/archive/2012/11/some_post. <br />
@@ -290,7 +300,9 @@ namespace MyBlog1
 
 </pre>
 
-<h5>Fixing anchor links</h5>
+<h3 class="mb-3">
+    Fixing anchor links
+</h3>
 
     In the _PostTemplate.cshtml we have to fix the "continue reading" link.
 
@@ -344,7 +356,9 @@ namespace MyBlog1
 
 
 
-<h5>Create comment form</h5>
+<h3 class="mb-3">
+    Create comment form
+</h3>
 
     If you see the mockup, the comment form is very simple. All it contains are three fields and a submit button.
     We can wrap the comment form in a <a href="https://www.w3schools.com/bootstrap4/bootstrap_cards.asp">card</a> to make it appear appealing.
@@ -396,8 +410,9 @@ namespace MyBlog1
 <br /><br />
 
 
-<h5>Create markup to display list of posted comments</h5>
-<br />
+<h3 class="mb-3">
+    Create markup to display list of posted comments
+</h3>
 
     Below the comment form, we've to display the list of posted comments. <br />
 
@@ -477,7 +492,19 @@ body {
 
 
 
+<p style="text-align: center;">
 
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/implementing_search_in_website?day=6" title="Previous post">
+        Previous post
+    </a>
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Create_sidebar_widgets?day=8" title="Next post">
+        Next post
+    </a>
+    <a class="btn btn-outline-danger pull-right" target="_blank" href="https://github.com/FranckyVercruysse/MyBlog.git" title="Fork in Github">
+        Fork in Git
+    </a>
+</p>
 
 
 

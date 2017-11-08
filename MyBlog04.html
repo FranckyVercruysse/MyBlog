@@ -9,8 +9,9 @@
 
 
 
-<h5>Display posts based on category</h5>
-<br />
+<h3 style="display:none">
+    Display posts based on category
+</h3>
 Each post belongs to a category and we are going to display the posts based on category.
 <br />
 We have to complete the following tasks.
@@ -21,8 +22,9 @@ We have to complete the following tasks.
 </ol>
 <br />
 
-<h5>Create repository methods to fetch posts, total posts and category based on slug</h5>
-<br />
+<h3 class="mb-3">
+    Create repository methods to fetch posts, total posts and category based on slug
+</h3>
 Let's define three new methods in the IBlogRepository interface.<br />
 
 <pre class="brush:csharp;">
@@ -93,10 +95,9 @@ namespace MyBlog.Repositories
 </pre>
 
 <br /><br />
-<h5>Create an action to return posts belongs a particular category</h5>
-
-<br />
-
+<h3 class="mb-3">
+    Create an action to return posts belongs a particular category
+</h3>
 We need a new action in our BlogController to diplay the posts based on category. <br />
 Create a new action with the name Category that takes both the slug parameter and pagination values.
 <br />
@@ -175,8 +176,9 @@ namespace MyBlog.Controllers
 
 </pre>
 <br /><br />
-<h5>Define a new route in Startup.cs file</h5>
-<br />
+<h3 class="mb-3">
+    Define a new route in Startup.cs file
+</h3>
 We need to map requests like http://localhost/category/programming, http://localhost/category/unittesting
 to Category action.
 The default route we have currently not supports this rule.
@@ -224,8 +226,9 @@ namespace MyBlog
     If none of the route matches then 404 error will be returned.
 </div>
 <br />
-<h5>Fixing anchor links</h5>
-<br />
+<h3 class="mb-3">
+    Fixing anchor links
+</h3>
 _PostTemplate.cshtml :
 
 <pre class="brush:xml;highlight:[9,10,11,12,13,14]">
@@ -272,7 +275,9 @@ _PostTemplate.cshtml :
 </pre>
 
 <br />
-<h5>Title of the content</h5>
+<h3 class="mb-3">
+    Title of the content
+</h3>
 <br />
 Replace text 'Latest Posts' of the h1 element of List.cshtml with @ViewBag.Title.
 <br />
@@ -315,6 +320,20 @@ List.cshtml :
 <br />
 Now we can browse posts based on category. Next we will see how to display posts labelled for a tag.
 <br /><br />
+
+<p style="text-align: center;">
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Display_the_latest_blog_posts?day=3" title="Previous post">
+        Previous post
+    </a>
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/10/Display_posts_based_on_tag?day=5" title="Next post">
+        Next post
+    </a>
+    <a class="btn btn-outline-danger pull-right" target="_blank" href="https://github.com/FranckyVercruysse/MyBlog.git" title="Fork in Github">
+        Fork in Git
+    </a>
+</p>
 
 
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
