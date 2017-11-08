@@ -61,13 +61,13 @@ namespace MyBlog1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,ShortDescription,Description,Meta,UrlSlug,Published,PostedOn,Modified,CategoryId")] Post post)
         {
-            string str = "foo\n\r\nbar";
-            using (Stream ms = new MemoryStream(Encoding.ASCII.GetBytes(str)))
-            using (StreamReader sr = new StreamReader(ms, Encoding.UTF8))
-            {
-                string str2 = sr.ReadToEnd();
-                Console.WriteLine(string.Join(",", str2.Select(c => ((int)c))));
-            }
+            //string str = "foo\n\r\nbar";
+            //using (Stream ms = new MemoryStream(Encoding.ASCII.GetBytes(str)))
+            //using (StreamReader sr = new StreamReader(ms, Encoding.UTF8))
+            //{
+            //    string str2 = sr.ReadToEnd();
+            //    Console.WriteLine(string.Join(",", str2.Select(c => ((int)c))));
+            //}
 
 
 
@@ -137,35 +137,35 @@ namespace MyBlog1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ShortDescription,Description,Meta,UrlSlug,Published,PostedOn,Modified,CategoryId")] Post post)
         {
-            //try
-            //{   // Open the text file using a stream reader.
-            //    using (StreamReader sr = new StreamReader(@"C:\Users\franc\source\repos\MyBlog\DescriptionShort.html"))
-            //    {
-            //        // Read the stream to a string, and write the string to the console.
-            //        String line = sr.ReadToEnd();
-            //        post.ShortDescription = line;
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("The file could not be read:");
-            //    Console.WriteLine(e.Message);
-            //}
+            try
+            {   // Open the text file using a stream reader.
+                using (StreamReader sr = new StreamReader(@"C:\Users\franc\source\repos\MyBlog\DescriptionShort.html",Encoding.UTF8))
+                {
+                    // Read the stream to a string, and write the string to the console.
+                    String line = sr.ReadToEnd();
+                    post.ShortDescription = line;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
 
-            //try
-            //{   // Open the text file using a stream reader.
-            //    using (StreamReader sr = new StreamReader(@"C:\Users\franc\source\repos\MyBlog\Description.html"))
-            //    {
-            //        // Read the stream to a string, and write the string to the console.
-            //        String line = sr.ReadToEnd();
-            //        post.Description = line;
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("The file could not be read:");
-            //    Console.WriteLine(e.Message);
-            //}
+            try
+            {   // Open the text file using a stream reader.
+                using (StreamReader sr = new StreamReader(@"C:\Users\franc\source\repos\MyBlog\Description.html", Encoding.UTF8))
+                {
+                    // Read the stream to a string, and write the string to the console.
+                    String line = sr.ReadToEnd();
+                    post.Description = line;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
 
             //++++++++++++++++++++++
 
