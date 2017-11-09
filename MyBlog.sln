@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DescriptionShort.html = DescriptionShort.html
 		MyBlog00.html = MyBlog00.html
 		Myblog01.html = Myblog01.html
-		..\..\..\..\Desktop\New folder\MyBlog01Short.html = ..\..\..\..\Desktop\New folder\MyBlog01Short.html
 		MyBlog01Short.html = MyBlog01Short.html
 		MyBlog02.html = MyBlog02.html
 		MyBlog02Short.html = MyBlog02Short.html
@@ -32,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MyBlog20.html = MyBlog20.html
 		MyBlog20Short.html = MyBlog20Short.html
 		MyBlog21.html = MyBlog21.html
+		MyBlog21Short.html = MyBlog21Short.html
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog", "MyBlog\MyBlog.csproj", "{23C7C78F-FCBA-4322-9610-7E66E06C23FB}"
