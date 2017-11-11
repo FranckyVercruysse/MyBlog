@@ -26,34 +26,33 @@
 <body>
     <header>
         <div class="container">
-                <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-                    <a class="navbar-brand" asp-controller="Blog" asp-action="Posts">My Blog</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                <a class="navbar-brand" asp-controller="Blog" asp-action="Posts">My Blog</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" asp-controller="Blog" asp-action="Posts">Posts <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
-                            </li>
-                        </ul>
-                        <form asp-controller="Blog" asp-action="Search" method="get" id="search-form" class="form-inline my-2 my-lg-0" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control mr-sm-2" id="s" name="s" placeholder="Search">
-                            </div>
-                            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Submit</button>
-                        </form>
-                    </div>
-                </nav>
-
-</div>
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="Blog" asp-action="Posts">Posts <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+                    </ul>
+                    <form asp-controller="Blog" asp-action="Search" method="get" id="search-form" class="form-inline my-2 my-lg-0" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control mr-sm-2" id="s" name="s" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Submit</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <div id="body" class="container">
@@ -78,12 +77,12 @@
     <environment exclude="Development">
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
                 integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
                 integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -96,8 +95,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
 
     <script language='javascript' type='text/javascript'>
-            SyntaxHighlighter.config.bloggerMode = true;
-            SyntaxHighlighter.all();
+        SyntaxHighlighter.config.bloggerMode = true;
+        SyntaxHighlighter.all();
     </script>
 
     @RenderSection("Scripts", required: false)

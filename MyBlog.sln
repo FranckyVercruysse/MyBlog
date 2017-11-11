@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog", "MyBlog\MyBlog.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog1", "MyBlog1\MyBlog1.csproj", "{DB2FC71D-3921-417E-9F83-965D82765347}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexBoxTest", "FlexBoxTest\FlexBoxTest.csproj", "{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{DB2FC71D-3921-417E-9F83-965D82765347}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB2FC71D-3921-417E-9F83-965D82765347}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB2FC71D-3921-417E-9F83-965D82765347}.Release|Any CPU.Build.0 = Release|Any CPU
+		{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
