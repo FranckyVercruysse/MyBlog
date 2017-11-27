@@ -1,8 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Contact";
-}
-
-<div class="container">
+﻿<div class="container">
     <div class="card card-outline-secondary text-center" style="background-color: #eceeef;">
         <div class="card-header">
             <h1>Contact Me</h1>
@@ -12,37 +8,29 @@
             <p class="card-text">
                 Do you have any question? Please use the below contact form and send a message. I'll reply you as quick as possible.
             </p>
-
-            <form>
-                <div class="container">
+            <div class="container">
+                <form>
                     <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                        <label for="name" class="col-sm-3 p-0 m-0  mr-5 text-sm-right">Name</label>
+                        <label for="name" class="col-sm-3 m-sm-0 p-sm-0 text-left text-sm-right">Name</label>
                         <input type="text" id="name" placeholder="Enter Name" class="col-sm-8">
                     </div>
-
                     <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                        <label for="email" class="col-sm-3 p-0 m-0  mr-5 text-sm-right">Email</label>
+                        <label for="email" class="col-sm-3 m-sm-0 p-sm-0 text-left text-sm-right">Email</label>
                         <input type="email" id="email" placeholder="Enter email" class="col-sm-8">
                     </div>
-
                     <div class="d-flex flex-column flex-sm-row align-items-center mb-3">
-                        <label for="subject" class="col-sm-3 p-0 m-0  mr-5 text-sm-right">Subject</label>
+                        <label for="subject" class="col-sm-3 m-sm-0 p-sm-0 text-left text-sm-right">Subject</label>
                         <input type="text" id="subject" placeholder="Subject" class="col-sm-8">
                     </div>
-
-                    <div class="d-flex flex-column flex-sm-row align-items-start mb-3">
-                        <label for="message" class="col-sm-3 p-0 m-0  mr-5 text-sm-right">Message</label>
+                    <div class="d-flex flex-column flex-sm-row mb-3">
+                        <label for="message" class="col-sm-3 mr-sm-0 pr-sm-0 text-left text-sm-right">Message</label>
                         <textarea id="message" rows="4" placeholder="Message" class="col-sm-8"></textarea>
                     </div>
-                    <div class="d-flex">
-                        <button type="submit" class="btn btn-primary col-md-4 offset-md-7">Submit your message!</button>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Submit your message!</button>
                     </div>
-                </div>
-
-
-
-            </form>
+                </form>
+            </div>
         </div>
-
     </div>
 </div>

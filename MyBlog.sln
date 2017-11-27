@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F90C2C8-9D70-4BA8-9177-40112C163C8A}"
 	ProjectSection(SolutionItems) = preProject
+		a.html = a.html
+		b.html = b.html
 		DbInitializer.txt = DbInitializer.txt
 		Description.html = Description.html
 		DescriptionShort.html = DescriptionShort.html
+		how_to_create_a_simple_blog_using_aspnet_core_mvc.html = how_to_create_a_simple_blog_using_aspnet_core_mvc.html
+		MyBlog.html = MyBlog.html
 		MyBlog00.html = MyBlog00.html
 		Myblog01.html = Myblog01.html
 		MyBlog01Short.html = MyBlog01Short.html
@@ -28,6 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MyBlog09.html = MyBlog09.html
 		MyBlog09Short.html = MyBlog09Short.html
 		MyBlog10.html = MyBlog10.html
+		MyBlog10Short.html = MyBlog10Short.html
 		MyBlog20.html = MyBlog20.html
 		MyBlog20Short.html = MyBlog20Short.html
 		MyBlog21.html = MyBlog21.html
@@ -38,7 +43,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog", "MyBlog\MyBlog.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog1", "MyBlog1\MyBlog1.csproj", "{DB2FC71D-3921-417E-9F83-965D82765347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexBoxTest", "FlexBoxTest\FlexBoxTest.csproj", "{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MyBlogShowPosts", "..\..\WebSites\MyBlogShowPosts\", "{C58FB2C2-E3CD-42CD-A626-3A86363E0C7B}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_56591"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\WebSites\MyBlogShowPosts\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56591\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_56591"
+		Release.AspNetCompiler.PhysicalPath = "..\..\WebSites\MyBlogShowPosts\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56591\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "56591"
+		SlnRelativePath = "..\..\WebSites\MyBlogShowPosts\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,10 +79,10 @@ Global
 		{DB2FC71D-3921-417E-9F83-965D82765347}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB2FC71D-3921-417E-9F83-965D82765347}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB2FC71D-3921-417E-9F83-965D82765347}.Release|Any CPU.Build.0 = Release|Any CPU
-		{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{022DAA64-2A4C-4D15-9ED9-0A156DC3C163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C58FB2C2-E3CD-42CD-A626-3A86363E0C7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58FB2C2-E3CD-42CD-A626-3A86363E0C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C58FB2C2-E3CD-42CD-A626-3A86363E0C7B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58FB2C2-E3CD-42CD-A626-3A86363E0C7B}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

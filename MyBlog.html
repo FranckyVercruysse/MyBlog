@@ -8,14 +8,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" />
 
 <link href="MyBlog/wwwroot/css/site.css" rel="stylesheet" />
+<script>
+    $(function () {
+        $("#includedContent").load("how_to_create_a_simple_blog_using_aspnet_core_mvc.html");
+    });
+</script>
 
 
 
+    <script src="jquery.js"></script>
+    <script>
 
+        $(function () {
+            alert('test')
+            $("#includedContent").load("b.html");
+        })();
+    </script>
 
-
-
-
+    <div id="includedContent"></div>
 
 
 
@@ -35,6 +45,10 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
+    $(function () {
+        $("#includedContent").load("how_to_create_a_simple_blog_using_aspnet_core_mvc.html");
+    });
 </script>
 
 

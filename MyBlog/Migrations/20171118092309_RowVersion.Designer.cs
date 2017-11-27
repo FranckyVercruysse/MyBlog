@@ -11,9 +11,10 @@ using System;
 namespace MyBlog.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    partial class BloggingContextModelSnapshot : ModelSnapshot
+    [Migration("20171118092309_RowVersion")]
+    partial class RowVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,13 +28,9 @@ namespace MyBlog.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("Name");
 
-                    b.Property<string>("UrlSlug")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("UrlSlug");
 
                     b.HasKey("Id");
 
@@ -57,19 +54,11 @@ namespace MyBlog.Migrations
 
                     b.Property<bool>("Published");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
                     b.Property<string>("ShortDescription");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("Title");
 
-                    b.Property<string>("UrlSlug")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("UrlSlug");
 
                     b.HasKey("Id");
 
@@ -103,13 +92,9 @@ namespace MyBlog.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("Name");
 
-                    b.Property<string>("UrlSlug")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("UrlSlug");
 
                     b.HasKey("Id");
 

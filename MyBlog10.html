@@ -1,52 +1,131 @@
-﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"
-      asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-      asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" />
-
 <link href="MyBlog/wwwroot/css/site.css" rel="stylesheet" />
 
-<h4>Create the about me page</h4>
+
+<h3 style="display:none;" class="mb-3">
+    Create the Contact Me page
+</h3>
+
+In the Contact Me page we are going to use 
+<a href="https://getbootstrap.com/docs/4.0/components/card/" target="_blank">Cards</a> and the
+<a href="https://getbootstrap.com/docs/4.0/utilities/flex/" target="_blank">Flexbox utilities</a>.
 <br />
-<h5>Fix Anchor Tags</h5>
+We wrap the card in a div with class <em>container</em>.
+Then we wrap a div with class <em>card-header</em> an a div with class <em>card-body</em> in this card container.
+In the <em>card-body</em> div we wrap a form. We are going to manage the layout of this form with the
+<a href="https://getbootstrap.com/docs/4.0/utilities/flex/" target="_blank">Flexbox utilities</a>.
+<br />
+To enable flex behaviors we have to add the class <em>d-flex</em> or one of the responsive variants (e.g. .d-sm-flex)
+to a container to create a flex container.
+The direct children elements of this flex container are transformed into flex items.
+This flex containers and items are able to be modified further with additional flex properties.
+<br />
+We will now change this form step by step by adding classes and looking at what the effect is.
+<br /><br /><br />
+
+<h3 class="mb-3">
+    Step 1
+</h3>
+Without any class in the form, we see that the content is centered by the class <em>text-center</em> of the card component.<br />
+<br />
+<script async src="https://jsfiddle.net/Francky/nhms5s1z/embed/html,result/"></script>
+<br />
+
+<h3 class="mb-3 mt-3">
+    Step 2
+</h3>
+By adding the class <em>d-flex</em> we create a flex container.<br />
+We add this class to the first four div elements of the form.<br />
+We also add the class <em>mb-3</em> to add some more margin to the bottom of these flex containers.<br />
+
+<script async src="https://jsfiddle.net/Francky/003cqLwq/embed/html,result/"></script>
+<br />
+
+<h3 class="mb-3 mt-3">
+    Step 3
+</h3>
+In extra small devices (&lt;576px), we want the labels and associated controls to lay one below other.
+Starting from small devices and up to extra large devices, we want them aligned horizontal to each other.
+We can use the class <em>flex-column</em> first. This class will set a vertical direction to the flex items.
+Then we apply the <em>flex-sm-row</em> class. This class comes after the <em>flex-column</em> class,
+so this class overrides the previous class for small devices and up.
+Adding this class (<em>flex-sm-row</em>) will align the label and the input element horizontally.
+
+We want alo that the column with the labels in small devices an up take 3 gridcolumns and that the input elements take 8 gridcolumns.
+We have to add the classes <em>col-sm-3</em> to the label element and <em>col-sm-8</em> to the input element.
+
+
+<script async src="https://jsfiddle.net/Francky/f837cdo9/embed/html,result/"></script>
+<br />
+
+<h3 class="mb-3 mt-3">
+    Step 4
+</h3>
+
+On viewports small and wider we want to to align the text in the label vertically with the text of the placeholder in the input elements.
+Therefore we have to add the class <em>align-items-center</em> to the flexbox container. 
+We don't apply these classes for the label containing the text <em>Message</em>.
+We also need to add the classes <em>m-sm-0</em> and <em>p-sm-0</em> to the first three labels to remove margin and padding.
+Otherwise, the text of these labels can not be vertically centered.
+<script async src="https://jsfiddle.net/Francky/2mvmtkx0/17/embed/html,result/"></script>
+
+<h3 class="mb-3 mt-3">
+    Step 5
+</h3>
+We want the label to be left aligned for the extra small devices and
+right aligned on viewports sized SM (small) or wider. There we have to add the classes <em>text-left</em> and <em>text-sm-right</em>.
+We need to add the classes <em>mr-sm-0</em> and <em>pr-sm-0</em> to the label containing the text <em>Message</em>
+to remove the right margin and right padding for small devices and up.
+
+<script async src="https://jsfiddle.net/Francky/0hyth2mn/embed/html,result/"></script>
+
+<h3 class="mb-3 mt-3">
+    Step 6
+</h3>
+Add the class <em>mr-sm-5</em> to all the labels of the form to create space between the labels and the input elements (in the message-label replace the class <em>mr-sm-0</em> with class <em>mr-sm-5</em> ).
+
+<script async src="https://jsfiddle.net/Francky/xx4urwf0/embed/html,result/"></script>
+
+<h3 class="mb-3 mt-3">
+    Step 7
+</h3>
+For extra small devices we want the button centered. On viewports small and wider we want the button right aligned.
+Therefore, we add the <em>row</em>, <em>justify-content-center</em> and <em>justify-content-sm-end</em> classes to the div element that contains the button.
+
+For medium and large devices we add some margin to the right with the classes <em>mr-md-3</em> and <em>mr-lg-5</em> to the button element.
+<script async src="https://jsfiddle.net/Francky/xu52hg7u/embed/html,result/"></script>
+<br /><br />
+<p style="text-align: center;">
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/8/display_the_post_tags_in_a_widget?day=9" title="Previous post">
+        Previous post
+    </a>
+
+    <a class="btn btn-outline-danger" href="http://myblogaboutdotnet.azurewebsites.net/Archive/2017/8/enabling_ef_core_migrations?day=20" title="Next post">
+        Next post
+    </a>
+    <a class="btn btn-outline-danger pull-right" target="_blank" href="https://github.com/FranckyVercruysse/MyBlog.git" title="Fork in Github">
+        Fork in Git
+    </a>
+</p>
 
 
 
-
-
-
-
-
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-        asp-fallback-test="window.jQuery"
-        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-        crossorigin="anonymous"></script>
-
-
-
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-
 <script language='javascript' type='text/javascript'>
     SyntaxHighlighter.config.bloggerMode = true;
     SyntaxHighlighter.all();
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
-
-
-
